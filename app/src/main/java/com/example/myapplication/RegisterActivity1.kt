@@ -8,5 +8,5 @@ class RegisterActivity1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_activity)
 
-}
+    }
 }

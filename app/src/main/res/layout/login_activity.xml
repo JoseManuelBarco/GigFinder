@@ -20,14 +20,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginTop="4dp"
         android:paddingTop="8dp"
         android:text="¿Has olvidado la contraseña?"
         android:textColor="@android:color/darker_gray"
@@ -69,7 +69,7 @@
         android:layout_width="144dp"
         android:layout_height="34dp"
         android:layout_marginStart="116dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="-10dp"
         android:gravity="center_horizontal"
         android:paddingTop="16dp"
         android:text="No tienes una cuenta? "
@@ -81,8 +81,8 @@
         android:id="@+id/registerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="624dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="610dp"
+        android:layout_marginEnd="30dp"
         android:gravity="center_horizontal"
         android:paddingTop="4dp"
         android:text="Regístrate"

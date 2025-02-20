@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Bienvenido! Ajusta tu cuenta a tu gusto."
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="32dp"/>
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Elige el tipo de cuenta: ¿Eres músico o un local que quiere recibir música?"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="16dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="16dp">
+
+        <RadioButton
+            android:id="@+id/radioMusico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Músico"
+            android:buttonTint="@color/purple_500"/>
+
+        <RadioButton
+            android:id="@+id/radioLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Local"
+            android:buttonTint="@color/purple_500"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/warningMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aléguate una vez elegido no te puedo cambiar!"
+        android:textColor="@android:color/white"
+        android:background="@color/orange"
+        android:padding="8dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirmar"
+        android:backgroundTint="@color/teal_200"
+        app:layout_constraintTop_toBottomOf="@id/warningMessage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

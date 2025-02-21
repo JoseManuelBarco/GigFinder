@@ -47,14 +47,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Músico"
-            android:buttonTint="@color/purple_500"/>
+            android:buttonTint="@color/violet"/>
 
         <RadioButton
             android:id="@+id/radioLocal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Local"
-            android:buttonTint="@color/purple_500"/>
+            android:buttonTint="@color/violet"/>
     </RadioGroup>
 
     <TextView
@@ -76,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirmar"
-        android:backgroundTint="@color/teal_200"
+        android:backgroundTint="@color/blue"
         app:layout_constraintTop_toBottomOf="@id/warningMessage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

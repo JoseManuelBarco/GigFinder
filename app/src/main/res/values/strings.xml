@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="register">Regístrate</string>
+    <string name="dontHaveAccount">No tienes una cuenta?</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="forgotPassword">¿Has olvidado la contraseña?</string>
 </resources>

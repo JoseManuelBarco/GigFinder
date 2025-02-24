@@ -2,4 +2,5 @@
 <resources>
     <dimen name="loginbuttonwidth">300dp</dimen>
     <dimen name="loginbuttonheight">40dp</dimen>
+    <dimen name="textboxloginwidth">40dp</dimen>
 </resources>

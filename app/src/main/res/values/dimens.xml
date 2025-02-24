@@ -3,6 +3,6 @@
     <dimen name="loginbuttonwidth">300dp</dimen>
     <dimen name="loginbuttonheight">40dp</dimen>
     <dimen name="textboxloginwidth">40dp</dimen>
-    <dimen name="hintLogin">16sp</dimen>
+    <dimen name="hintLogin">18sp</dimen>
     <dimen name="textLogin">14sp</dimen>
 </resources>

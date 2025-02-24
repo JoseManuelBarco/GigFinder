@@ -4,5 +4,8 @@
     <string name="dontHaveAccount">No tienes una cuenta?</string>
     <string name="email">Email</string>
     <string name="password">Contraseña</string>
+    <string name="confirmPassword">Confirmar contraseña</string>
     <string name="forgotPassword">¿Has olvidado la contraseña?</string>
+    <string name="logIn">Iniciar sesión</string>
+    <string name="haveAccount">¿Ya tienes una cuenta?</string>
 </resources>

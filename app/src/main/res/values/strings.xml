@@ -8,4 +8,11 @@
     <string name="forgotPassword">¿Has olvidado la contraseña?</string>
     <string name="logIn">Iniciar sesión</string>
     <string name="haveAccount">¿Ya tienes una cuenta?</string>
+    <string name="logo">Logo</string>
+    <string name="titleRegister2">¡Bienvenido! Ajusta tu cuenta a tu gusto</string>
+    <string name="chooserAccountType">Elige el tipo de cuenta: ¿Eres músico o un local que quiere recibir actuaciones?</string>
+    <string name="musician">Músico</string>
+    <string name="local">Local</string>
+    <string name="warningAccountType">¡Asegurate, una vez elegido no lo podrás cambiar!</string>
+    <string name="confirm">Confirmar</string>
 </resources>

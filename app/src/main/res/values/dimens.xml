@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="loginbuttonwidth">300dp</dimen>
+    <dimen name="loginbuttonwidth">220dp</dimen>
     <dimen name="loginbuttonheight">40dp</dimen>
-    <dimen name="textboxloginwidth">40dp</dimen>
+    <dimen name="textboxloginwidth">300dp</dimen>
+    <dimen name="textboxloginheigth">60dp</dimen>
+
 </resources>

@@ -11,75 +11,76 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="¡Bienvenido! Ajusta tu cuenta a tu gusto."
-        android:textSize="18sp"
+        android:layout_marginTop="84dp"
+        android:gravity="center"
+        android:text="@string/titleRegister2"
+        android:textSize="@dimen/titleRegister"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:paddingTop="32dp"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Elige el tipo de cuenta: ¿Eres músico o un local que quiere recibir música?"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="76dp"
+        android:gravity="center"
+        android:paddingHorizontal="30dp"
+        android:text="@string/chooserAccountType"
+        android:textSize="@dimen/textLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        android:paddingTop="16dp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"/>
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/subtitle"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingTop="16dp">
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
-        <RadioButton
-            android:id="@+id/radioMusico"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Músico"
-            android:buttonTint="@color/violet"/>
+    <ImageView
+        android:id="@+id/imgSelectLocal"
+        android:layout_width="139dp"
+        android:layout_height="41dp"
+        android:background="@drawable/selectlocalwhite"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="214dp"
+        tools:layout_editor_absoluteY="290dp" />
 
-        <RadioButton
-            android:id="@+id/radioLocal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Local"
-            android:buttonTint="@color/violet"/>
-    </RadioGroup>
+    <ImageView
+        android:id="@+id/imgSelectMusician"
+        android:layout_width="136dp"
+        android:layout_height="41dp"
+        android:background="@drawable/selectmusicianviolet"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="79dp"
+        tools:layout_editor_absoluteY="290dp" />
 
     <TextView
         android:id="@+id/warningMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aléguate una vez elegido no te puedo cambiar!"
-        android:textColor="@android:color/white"
         android:background="@color/orange"
-        android:padding="8dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/radioGroup"
-        app:layout_constraintStart_toStartOf="parent"
+        android:padding="15dp"
+        android:text="@string/warningAccountType"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="359dp"
+        />
 
-    <Button
-        android:id="@+id/confirmButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Confirmar"
-        android:backgroundTint="@color/blue"
-        app:layout_constraintTop_toBottomOf="@id/warningMessage"
-        app:layout_constraintStart_toStartOf="parent"
+    <ImageView
+        android:id="@+id/signupButton"
+        android:layout_width="@dimen/loginbuttonwidth"
+        android:layout_height="@dimen/loginbuttonheight"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp"/>
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="525dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

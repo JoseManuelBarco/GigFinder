@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="loginbuttonwidth">220dp</dimen>
+    <dimen name="loginbuttonwidth">2200dp</dimen>
     <dimen name="loginbuttonheight">40dp</dimen>
+    <dimen name="hintLogin">18sp</dimen>
+    <dimen name="textLogin">14sp</dimen>
+    <dimen name="titleRegister">24sp</dimen>
     <dimen name="textboxloginwidth">300dp</dimen>
     <dimen name="textboxloginheigth">60dp</dimen>
 

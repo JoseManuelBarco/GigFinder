@@ -1,6 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="372dp"
+        android:layout_height="74dp"
+        android:gravity="center"
+        android:text="¡Bienvenido! Ajusta tu cuenta a tu gusto."
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/aforoMaximoEditText"
+        android:layout_width="@dimen/textboxloginwidth"
+        android:layout_height="@dimen/textboxloginheigth"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/edittext_background"
+        android:hint="Aforo máximo del local"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombreLocalEditText" />
+
+    <EditText
+        android:id="@+id/nombreLocalEditText"
+        android:layout_width="@dimen/textboxloginwidth"
+        android:layout_height="@dimen/textboxloginheigth"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/edittext_background"
+        android:hint="Nombre Local"
+        android:inputType="textCapWords"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+
+    <org.osmdroid.views.MapView
+        android:id="@+id/osmMapView"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="116dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/seleccionUbicacionTextView"
+        android:layout_width="395dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="Selecciona la ubicación de tu local"
+        android:textSize="16sp"
+
+        app:layout_constraintBottom_toTopOf="@+id/osmMapView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aforoMaximoEditText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/confirmButton"
+        android:layout_width="@dimen/loginbuttonwidth"
+        android:layout_height="@dimen/loginbuttonheight"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/rounded_button"
+        android:text="Confirmar"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/osmMapView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

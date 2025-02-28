@@ -13,7 +13,7 @@
         android:layout_height="74dp"
         android:gravity="center"
         android:text="¡Bienvenido! Ajusta tu cuenta a tu gusto."
-        android:textSize="20sp"
+        android:textSize="@dimen/titleRegister"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

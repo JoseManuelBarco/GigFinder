@@ -59,8 +59,8 @@
     <TextView
         android:id="@+id/warningMessage"
         android:layout_width="210dp"
-        android:layout_height="43dp"
-        android:background="@color/orange"
+        android:layout_height="51dp"
+        android:background="@drawable/rounded_warning"
         android:text="@string/warningAccountType"
         android:textColor="@color/black"
         android:gravity="center"

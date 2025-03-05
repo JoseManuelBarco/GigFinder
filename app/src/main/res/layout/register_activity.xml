@@ -65,7 +65,7 @@
         android:layout_width="@dimen/loginbuttonwidth"
         android:layout_height="@dimen/loginbuttonheight"
         android:layout_marginTop="40dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/blue_button_register"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

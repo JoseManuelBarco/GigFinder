@@ -11,13 +11,13 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="80dp"
         android:gravity="center"
         android:text="@string/titleRegister2"
         android:textSize="@dimen/titleRegister"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,13 +25,12 @@
         android:id="@+id/subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="80dp"
         android:gravity="center"
         android:paddingHorizontal="30dp"
         android:text="@string/chooserAccountType"
         android:textSize="@dimen/textLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -39,19 +38,23 @@
         android:id="@+id/imgSelectLocal"
         android:layout_width="139dp"
         android:layout_height="41dp"
+        android:layout_marginEnd="216dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/selectlocalwhite"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="214dp"
-        tools:layout_editor_absoluteY="290dp" />
+        app:layout_constraintBottom_toTopOf="@+id/warningMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imgSelectMusician"
         android:layout_width="136dp"
         android:layout_height="41dp"
+        android:layout_marginStart="188dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/selectmusicianviolet"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="79dp"
-        tools:layout_editor_absoluteY="290dp" />
+        app:layout_constraintBottom_toTopOf="@+id/warningMessage"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/warningMessage"

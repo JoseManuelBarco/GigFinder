@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         loginTextView.setOnClickListener {
-            val intent = Intent(this, RegisterActivityMap::class.java)
+            val intent = Intent(this, RegisterActivity1::class.java)
             startActivity(intent)
         }
     }

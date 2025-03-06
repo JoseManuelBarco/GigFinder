@@ -17,12 +17,12 @@ class MainActivity : AppCompatActivity() {
         val loginTextView: TextView = findViewById(R.id.registerTextView)
 
         signupButton.setOnClickListener {
-            val intent = Intent(this, RegisterActivity1::class.java)
+            val intent = Intent(this, RegisterActivityMap::class.java)
             startActivity(intent)
         }
 
         loginTextView.setOnClickListener {
-            val intent = Intent(this, RegisterActivity1::class.java)
+            val intent = Intent(this, RegisterActivityMap::class.java)
             startActivity(intent)
         }
     }

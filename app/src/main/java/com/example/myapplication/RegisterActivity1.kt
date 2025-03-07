@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.objects.RegisterUser
+import com.example.myapplication.objects.User
 
 class RegisterActivity1 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register1)
+        setContentView(R.layout.register_activity2)
 
         val imgSelectLocal = findViewById<ImageView>(R.id.imgSelectLocal)
         val imgSelectMusician = findViewById<ImageView>(R.id.imgSelectMusician)
@@ -21,7 +21,7 @@ class RegisterActivity1 : AppCompatActivity() {
 
         imgSelectLocal.setOnClickListener {
             selectedRole = "Local"
-            imgSelectLocal.setBackgroundResource(R.drawable.selectmusicianviolet) // Indicar selección
+            imgSelectLocal.setBackgroundResource(R.drawable.selectmusicianviolet)
             imgSelectMusician.setBackgroundResource(R.drawable.selectlocalwhite)
         }
 

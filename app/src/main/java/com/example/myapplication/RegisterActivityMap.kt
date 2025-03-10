@@ -56,7 +56,7 @@ class RegisterActivityMap : AppCompatActivity() {
                 val latitude = it.position.latitude
                 val longitude = it.position.longitude
 
-                val nextIntent = Intent(this, RegisterActivity1::class.java)
+                val nextIntent = Intent(this, RegisterActivity6::class.java)
 
                 nextIntent.putExtra("rol", role)
                 nextIntent.putExtra("email", email)

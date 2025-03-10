@@ -8,4 +8,14 @@ abstract class User (
     private val password: String,
     private val rol: String,
     private val avg_rating: Int,
-    private val image_identifier: String) {}
+    private val image_identifier: String) {
+
+    fun getEmail() : String{
+        return email
+    }
+
+    fun getPassword(): String {
+        return password
+    }
+
+}

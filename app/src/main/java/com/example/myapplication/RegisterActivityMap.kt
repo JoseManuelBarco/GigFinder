@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -20,6 +21,7 @@ import android.widget.ImageView
 class RegisterActivityMap : AppCompatActivity() {
     private lateinit var osmMapView: MapView
     private var singleMarker: Marker? = null
+
 
     companion object {
         private const val REQUEST_LOCATION_PERMISSION = 1
@@ -36,15 +38,36 @@ class RegisterActivityMap : AppCompatActivity() {
         osmMapView = findViewById(R.id.osmMapView)
         osmMapView.setMultiTouchControls(true)
 
+        val role = intent.getStringExtra("rol")
+        val email = intent.getStringExtra("email")
+        val password = intent.getStringExtra("password")
+
+        val nombreLocalEditText = findViewById<EditText>(R.id.nombreLocalEditText)
+        val aforoMaximoEditText = findViewById<EditText>(R.id.aforoMaximoEditText)
+
         checkLocationPermission()
         setupMapTouchOverlay()
 
         findViewById<ImageView>(R.id.confirmButton).setOnClickListener {
+            val nombreLocal = nombreLocalEditText.text.toString()
+            val aforoMaximo = aforoMaximoEditText.text.toString()
+
             singleMarker?.let {
-                setResult(RESULT_OK, Intent().apply {
-                    putExtra(EXTRA_LATITUDE, it.position.latitude)
-                    putExtra(EXTRA_LONGITUDE, it.position.longitude)
-                })
+                val latitude = it.position.latitude
+                val longitude = it.position.longitude
+
+                val nextIntent = Intent(this, RegisterActivity6::class.java)
+
+                nextIntent.putExtra("rol", role)
+                nextIntent.putExtra("email", email)
+                nextIntent.putExtra("password", password)
+                nextIntent.putExtra(EXTRA_LATITUDE, latitude)
+                nextIntent.putExtra(EXTRA_LONGITUDE, longitude)
+                nextIntent.putExtra(nombreLocal, nombreLocal)
+                nextIntent.putExtra(aforoMaximo, aforoMaximo.toInt())
+
+
+                startActivity(nextIntent)
                 finish()
             }
         }

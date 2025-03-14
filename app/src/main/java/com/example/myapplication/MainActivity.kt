@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.objects.User
+import org.mindrot.jbcrypt.BCrypt
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +24,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         loginTextView.setOnClickListener {
-            val intent = Intent(this, RegisterActivityMap::class.java)
+            val intent = Intent(this, RegisterActivity1::class.java)
             startActivity(intent)
         }
+    }
+    private fun verifyUser(userName : TextView, password : TextView, userList : ArrayList<User>) : Boolean{
+        var foundUser = false
+
+        for (user in userList) {
+            if (user.getEmail() == userName.text && BCrypt.checkpw(password.text.toString(), user.getPassword())) {
+                foundUser = true
+            }
+        }
+
+        return foundUser
     }
 }

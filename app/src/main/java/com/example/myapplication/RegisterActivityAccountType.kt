@@ -5,9 +5,8 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.objects.User
 
-class RegisterActivity1 : AppCompatActivity() {
+class RegisterActivityAccountType : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +36,7 @@ class RegisterActivity1 : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val intent = Intent(this, RegisterActivity2::class.java)
+            val intent = Intent(this, RegisterActivityPersonalData::class.java)
             intent.putExtra("rol", selectedRole)
             startActivity(intent)
         }

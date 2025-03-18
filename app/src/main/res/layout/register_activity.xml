@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".RegisterActivity1">
+    tools:context=".RegisterActivityAccountType">
 
     <EditText
         android:id="@+id/confirmpasswordEditText"

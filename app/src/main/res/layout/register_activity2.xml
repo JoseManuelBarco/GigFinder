@@ -72,7 +72,7 @@
         android:layout_marginTop="36dp"
         />
 
-    <TextView
+    <ImageView
         android:id="@+id/signupButton"
         android:layout_width="240dp"
         android:layout_height="@dimen/loginbuttonheight"

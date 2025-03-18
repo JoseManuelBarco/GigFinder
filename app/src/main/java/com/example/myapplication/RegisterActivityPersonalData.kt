@@ -6,9 +6,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.objects.User
 
-class RegisterActivity2 : AppCompatActivity() {
+class RegisterActivityPersonalData : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,14 +36,15 @@ class RegisterActivity2 : AppCompatActivity() {
             }
 
             val intent = if (role == "Local") {
-                Intent(this, RegisterActivityMap::class.java) // Si es local
+                Intent(this, RegisterActivityFillAccountDetailsLocal::class.java) // Si es local
             } else {
-                Intent(this, RegisterActivity1::class.java) // Si es músico
+                Intent(this, RegisterActivityAccountType::class.java) // Si es músico
             }
             intent.putExtra("rol", role)
             intent.putExtra("email", email)
             intent.putExtra("password", password)
             startActivity(intent)
+            finish()
         }
     }
 }

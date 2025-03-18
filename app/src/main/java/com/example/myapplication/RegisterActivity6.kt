@@ -2,12 +2,14 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
+import com.example.myapplication.RegisterActivityFillAccountDetailsLocal.Companion.EXTRA_LATITUDE
 
 class RegisterActivity6 : AppCompatActivity() {
 
@@ -15,24 +17,33 @@ class RegisterActivity6 : AppCompatActivity() {
     private lateinit var textViewResumen: TextView
     private var nombre: String? = null
     private var correo: String? = null
-    private var edad: String? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registeractivity4)
 
-        // Obtener datos de la actividad anterior
+        val nombreLocal = intent.getStringExtra("nombreLocal")
+        val aforoMaximo = intent.getIntExtra("aforoMaximo", 0)
+        val latitude = intent.getStringExtra(EXTRA_LATITUDE)
+        val longitude = intent.getStringExtra(EXTRA_LATITUDE)
+
+
+
+        Log.d("RegisterActivity6", "Nombre del local: $nombreLocal")
+        Log.d("RegisterActivity6", "Aforo máximo: $aforoMaximo")
+        Log.d("RegisterActivity6", "Latitud del marcador: $latitude")
+        Log.d("RegisterActivity6", "Longitud del marcador: $longitude")
+
+
         nombre = intent.getStringExtra("nombre")
         correo = intent.getStringExtra("correo")
-        edad = intent.getStringExtra("edad")
 
-        // Referencia al TextView donde se mostrará la información final
         textViewResumen = findViewById(R.id.textViewtitle)
 
-        // Configurar selección de géneros
         configurarSeleccionGenero()
 
-        // Configurar botones
         findViewById<View>(R.id.button).setOnClickListener { confirmarSeleccion() }
         findViewById<View>(R.id.button2).setOnClickListener { saltarSeleccion() }
     }
@@ -64,16 +75,6 @@ class RegisterActivity6 : AppCompatActivity() {
             Toast.makeText(this, "Selecciona al menos un género", Toast.LENGTH_SHORT).show()
             return
         }
-
-        // Mostrar todos los datos del usuario
-        val resumen = """
-            Nombre: $nombre
-            Correo: $correo
-            Edad: $edad
-            Géneros seleccionados: ${generosSeleccionados.joinToString(", ")}
-        """.trimIndent()
-
-        textViewResumen.text = resumen
     }
 
     private fun saltarSeleccion() {

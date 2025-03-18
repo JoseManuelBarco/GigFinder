@@ -3,7 +3,6 @@ package com.example.myapplication
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
@@ -19,7 +18,7 @@ import org.osmdroid.views.overlay.MapEventsOverlay
 import org.osmdroid.events.MapEventsReceiver
 import android.widget.ImageView
 
-class RegisterActivityMap : AppCompatActivity() {
+class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
     private lateinit var osmMapView: MapView
     private var singleMarker: Marker? = null
 
@@ -58,7 +57,9 @@ class RegisterActivityMap : AppCompatActivity() {
         // Al hacer click en el botón, recolectar la información y pasarla a la siguiente actividad
         findViewById<ImageView>(R.id.confirmButton).setOnClickListener {
             val nombreLocal = nombreLocalEditText.text.toString()
-            val aforoMaximo = aforoMaximoEditText.text.toString()
+            val aforoMaximoText = aforoMaximoEditText.text.toString()
+
+            val aforoMaximo = aforoMaximoText.toIntOrNull()
 
             Log.d("RegisterActivityMap", "Nombre del local: $nombreLocal")
             Log.d("RegisterActivityMap", "Aforo máximo: $aforoMaximo")
@@ -74,11 +75,11 @@ class RegisterActivityMap : AppCompatActivity() {
                 val nextIntent = Intent(this, RegisterActivity6::class.java)
                 nextIntent.putExtra("rol", role) // Pasar el rol
                 nextIntent.putExtra("email", email) // Pasar el email
-                nextIntent.putExtra("password", password) // Pasar la contraseña
-                nextIntent.putExtra(EXTRA_LATITUDE, latitude) // Pasar la latitud
+                nextIntent.putExtra("password", password)
+                nextIntent.putExtra(EXTRA_LATITUDE, latitude)
                 nextIntent.putExtra(EXTRA_LONGITUDE, longitude)
-                nextIntent.putExtra("nombreLocal", nombreLocal) // Pasar el nombre del local
-                nextIntent.putExtra("aforoMaximo", aforoMaximo.toInt()) // Pasar el aforo máximo
+                nextIntent.putExtra("nombreLocal", nombreLocal)
+                nextIntent.putExtra("aforoMaximo", aforoMaximo)
 
                 startActivity(nextIntent)
                 finish()

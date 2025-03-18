@@ -16,9 +16,12 @@
         android:textSize="18sp"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="59dp" />
+        tools:layout_editor_absoluteY="59dp"
+        app:layout_constraintStart_toEndOf="@+id/opportunityLocalIconImageView"
+        />
 
     <ImageView
+        android:id="@+id/opportunityLocalIconImageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/logogigfinder"

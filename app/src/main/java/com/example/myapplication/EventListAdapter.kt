@@ -27,7 +27,7 @@ class EventAdapter(private val eventList: List<Event>) : RecyclerView.Adapter<Ev
         holder.nombreTextView.text = event.name
         holder.fechaTextView.text = event.date
         holder.horaTextView.text = event.time
-        holder.imageView.setImageResource(R.drawable.logogigfinder) // Puedes cambiar esto si usas imágenes dinámicas
+        holder.imageView.setImageResource(R.drawable.logogigfinder)
     }
 
     override fun getItemCount() = eventList.size

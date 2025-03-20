@@ -80,11 +80,12 @@
         android:id="@+id/constraintLayout6"
         android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="124dp"
         android:background="@color/grey"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.468"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="553dp">
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/distancetext"
@@ -136,7 +137,7 @@
             android:layout_height="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/date_end"
+            app:layout_constraintTop_toBottomOf="@+id/select_genre"
             app:layout_constraintVertical_bias="1.0" />
 
 
@@ -157,7 +158,10 @@
         android:layout_marginBottom="40dp"
         android:background="@color/grey"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
-        tools:layout_editor_absoluteX="52dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.915">
 
         <TextView
             android:id="@+id/date_start"
@@ -189,5 +193,25 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="Crear/Guardar"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:background="@drawable/blue_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="713dp" />
+
+    <include
+        layout="@layout/navigation_bar"
+        android:id="@+id/navBarConstraintLayout" />
+
+    <include
+        layout="@layout/top_bar"
+        android:id="@+id/top_bar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,13 +28,13 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"/>
 
-    <TextView
-        android:id="@+id/searchIconLabel"
-        android:text="Buscar Locales"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="11sp"/>
+        <TextView
+            android:id="@+id/searchIconLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buscar Locales"
+            android:textAlignment="center"
+            android:textSize="11sp" />
 
     </LinearLayout>
 
@@ -116,7 +116,7 @@
 
     <TextView
         android:id="@+id/eventsIconLabel"
-        android:text="Eventos"
+        android:text=" Mi \n Eventos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"

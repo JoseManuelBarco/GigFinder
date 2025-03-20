@@ -9,14 +9,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.RegisterActivityFillAccountDetailsLocal.Companion.EXTRA_LATITUDE
 import com.example.myapplication.R
-import com.example.myapplication.RegisterActivityFillAccountDetailsLocal.Companion.EXTRA_LATITUDE
 
 class RegisterActivity6 : AppCompatActivity() {
 
     private val generosSeleccionados = mutableListOf<String>()
     private lateinit var textViewResumen: TextView
-    private var nombre: String? = null
-    private var correo: String? = null
 
 
 
@@ -26,8 +23,10 @@ class RegisterActivity6 : AppCompatActivity() {
 
         val nombreLocal = intent.getStringExtra("nombreLocal")
         val aforoMaximo = intent.getIntExtra("aforoMaximo", 0)
-        val latitude = intent.getStringExtra(EXTRA_LATITUDE)
-        val longitude = intent.getStringExtra(EXTRA_LATITUDE)
+        val latitude = intent.getDoubleExtra("EXTRA_LATITUDE", 0.0)
+        val longitude = intent.getDoubleExtra("EXTRA_LONGITUDE", 0.0)
+        val email = intent.getStringExtra("email")
+        val password = intent.getStringExtra("password")
 
 
 
@@ -35,10 +34,9 @@ class RegisterActivity6 : AppCompatActivity() {
         Log.d("RegisterActivity6", "Aforo máximo: $aforoMaximo")
         Log.d("RegisterActivity6", "Latitud del marcador: $latitude")
         Log.d("RegisterActivity6", "Longitud del marcador: $longitude")
+        Log.d("RegisterActivity6", "Email: $email")
+        Log.d("RegisterActivity6", "Password: $password")
 
-
-        nombre = intent.getStringExtra("nombre")
-        correo = intent.getStringExtra("correo")
 
         textViewResumen = findViewById(R.id.textViewtitle)
 
@@ -69,6 +67,8 @@ class RegisterActivity6 : AppCompatActivity() {
             }
         }
     }
+
+
 
     private fun confirmarSeleccion() {
         if (generosSeleccionados.isEmpty()) {

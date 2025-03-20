@@ -35,15 +35,15 @@ class RegisterActivityPersonalData : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val intent = if (role == "Local") {
+            val intentPersonalData = if (role == "Local") {
                 Intent(this, RegisterActivityFillAccountDetailsLocal::class.java) // Si es local
             } else {
                 Intent(this, RegisterActivityAccountType::class.java) // Si es músico
             }
-            intent.putExtra("rol", role)
-            intent.putExtra("email", email)
-            intent.putExtra("password", password)
-            startActivity(intent)
+            intentPersonalData.putExtra("rol", role)
+            intentPersonalData.putExtra("email", email)
+            intentPersonalData.putExtra("password", password)
+            startActivity(intentPersonalData)
             finish()
         }
     }

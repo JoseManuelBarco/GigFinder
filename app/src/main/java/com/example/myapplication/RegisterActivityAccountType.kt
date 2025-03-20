@@ -20,8 +20,8 @@ class RegisterActivityAccountType : AppCompatActivity() {
 
         imgSelectLocal.setOnClickListener {
             selectedRole = "Local"
-            imgSelectLocal.setBackgroundResource(R.drawable.selectmusicianviolet)
-            imgSelectMusician.setBackgroundResource(R.drawable.selectlocalwhite)
+            imgSelectLocal.setBackgroundResource(R.drawable.selectlocalviolet)
+            imgSelectMusician.setBackgroundResource(R.drawable.selectmusicianwhite)
         }
 
         imgSelectMusician.setOnClickListener {
@@ -40,5 +40,7 @@ class RegisterActivityAccountType : AppCompatActivity() {
             intent.putExtra("rol", selectedRole)
             startActivity(intent)
         }
+
+
     }
 }

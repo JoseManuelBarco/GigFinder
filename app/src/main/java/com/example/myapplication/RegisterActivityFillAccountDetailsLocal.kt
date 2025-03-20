@@ -76,8 +76,8 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
                 nextIntent.putExtra("rol", role) // Pasar el rol
                 nextIntent.putExtra("email", email) // Pasar el email
                 nextIntent.putExtra("password", password)
-                nextIntent.putExtra(EXTRA_LATITUDE, latitude)
-                nextIntent.putExtra(EXTRA_LONGITUDE, longitude)
+                nextIntent.putExtra("EXTRA_LATITUDE", latitude)
+                nextIntent.putExtra("EXTRA_LONGITUDE", longitude)
                 nextIntent.putExtra("nombreLocal", nombreLocal)
                 nextIntent.putExtra("aforoMaximo", aforoMaximo)
 

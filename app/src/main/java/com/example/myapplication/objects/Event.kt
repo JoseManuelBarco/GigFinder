@@ -5,7 +5,7 @@ import java.util.Date
 class Event(
     private val idEvent: Int,
     private val description: String,
-    private val date_start: Date,
+     val date_start: Date,
     private val date_end: Date,
     private val open_offer: Boolean,
     private val canceled: Boolean,

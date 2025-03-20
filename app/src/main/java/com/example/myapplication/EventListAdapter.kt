@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.objects.Event
 
-class EventAdapter(private val eventList: List<Event>) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+/*class EventAdapter(private val eventList: List<Event>) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
 
     class EventViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nombreTextView: TextView = view.findViewById(R.id.nombreTextView)
@@ -23,12 +23,18 @@ class EventAdapter(private val eventList: List<Event>) : RecyclerView.Adapter<Ev
     }
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
+
+        //Se supone que la API tiene endpoints para esto (NO SE COMO SE HACE JAJA XD LOL)
+
         val event = eventList[position]
-        holder.nombreTextView.text = event.name
-        holder.fechaTextView.text = event.date
+        holder.nombreTextView.text =
+        holder.fechaTextView.text = event.date_start.toString()
+
         holder.horaTextView.text = event.time
         holder.imageView.setImageResource(R.drawable.logogigfinder)
     }
 
     override fun getItemCount() = eventList.size
-}
+
+
+}*/

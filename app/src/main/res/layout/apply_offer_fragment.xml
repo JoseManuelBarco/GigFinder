@@ -4,21 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include
-        layout="@layout/navigation_bar"
-        android:id="@+id/navBarConstraintLayout" />
 
     <include
-        layout="@layout/top_bar"
-        android:id="@+id/top_bar"/>
+        android:id="@+id/navBarConstraintLayout"
+        layout="@layout/navigation_bar" />
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/top_bar" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_marginTop="52dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
+        app:layout_constraintBottom_toTopOf="@+id/descriptioneventTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
@@ -30,13 +33,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:text="19 feb 2025"
-            android:textSize="20sp"
+            android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="32dp"
             android:background="@drawable/clock"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -49,56 +52,43 @@
             android:id="@+id/date_timeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:text="16:00"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout7"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/descriptioneventTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/logogigfinder"
-            app:layout_constraintEnd_toStartOf="@+id/textView6"
-            app:layout_constraintHorizontal_bias="0.39"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre local/ Persona"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/descriptioneventTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sera un concierto muy emocionante, habran muchas personas esperando a localH"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="116dp" />
+
+    <TextView
+        android:id="@+id/paymentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Oferta salarial: 150€"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteY="192dp" />
+
+    <EditText
+        android:id="@+id/presentationmessageEditText"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         android:layout_marginBottom="76dp"
-        android:text="Descripcion: \n Sera un concierto muy emocionante, habran muchas personas esperando a local"
+        android:text="Hola"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,9 +99,9 @@
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginBottom="152dp"
-        android:background="@drawable/red_rounded_rectangle"
+        android:background="@drawable/blue_rectangle"
         android:gravity="center"
-        android:text="Cancelar evento"
+        android:text="Enviar Solicitud"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

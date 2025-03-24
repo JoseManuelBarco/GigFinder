@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -17,10 +18,13 @@ class RegisterActivityPersonalData : AppCompatActivity() {
         val emailEditText = findViewById<EditText>(R.id.emailEditText)
         val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
         val confirmPasswordEditText = findViewById<EditText>(R.id.confirmpasswordEditText)
-        val nextButton = findViewById<ImageView>(R.id.continueButton)
-        val role = intent.getStringExtra("rol")
+        val continueButton = findViewById<ImageView>(R.id.continueButton)
+        val role = intent.getStringExtra("role")
 
-        nextButton.setOnClickListener {
+        Log.d("RegisterActivityPersonalData", "Role: $role")
+
+
+        continueButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
             val confirmPassword = confirmPasswordEditText.text.toString()
@@ -35,12 +39,12 @@ class RegisterActivityPersonalData : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val intentPersonalData = if (role == "Local") {
-                Intent(this, RegisterActivityFillAccountDetailsLocal::class.java) // Si es local
-            } else {
-                Intent(this, RegisterActivityAccountType::class.java) // Si es músico
+            val intentPersonalData = when (role) {
+                "Musician" -> Intent(this, RegisterActivityFillAccountDetailsMusician::class.java) // Si es músico
+                "Local" -> Intent(this, RegisterActivityFillAccountDetailsLocal::class.java) // Si es local
+                else -> throw IllegalArgumentException("Rol desconocido") // Si el rol no es ni "Musician" ni "Local"
             }
-            intentPersonalData.putExtra("rol", role)
+            intentPersonalData.putExtra("role", role)
             intentPersonalData.putExtra("email", email)
             intentPersonalData.putExtra("password", password)
             startActivity(intentPersonalData)

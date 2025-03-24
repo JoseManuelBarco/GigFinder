@@ -36,7 +36,7 @@
         android:layout_marginBottom="140dp"
         android:columnCount="3"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSelectLater"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent">
@@ -305,24 +305,24 @@
         android:fontFamily="@font/inter"
         android:gravity="center"
         android:text="Selecciona uno o más géneros"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSelectLater"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/button2"
+        android:id="@+id/buttonSelectLater"
         android:layout_width="@dimen/loginbuttonwidth"
         android:layout_height="@dimen/textboxloginheigth"
         android:layout_marginBottom="28dp"
         android:text="Seleccionar más tarde"
         android:background="@drawable/grey_button_register"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/buttonConfirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/button"
+        android:id="@+id/buttonConfirm"
         android:layout_width="@dimen/loginbuttonwidth"
         android:layout_height="@dimen/textboxloginheigth"
         android:layout_marginBottom="120dp"

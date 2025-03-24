@@ -21,8 +21,8 @@
         android:text="Listado"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/opportunitiesFiltersConstraintLayout"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -32,12 +32,9 @@
         android:layout_height="662dp"
         android:padding="16dp"
         android:scrollbars="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="89dp"
-        app:layout_constraintTop_toBottomOf="@+id/opportunitiesListTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/navBarConstraintLayout"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/opportunitiesFiltersConstraintLayout"
@@ -46,9 +43,9 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/small_button_opportunities"
         android:backgroundTint="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/opportunitiesListTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/opportunitiesListTextView"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="269dp">
 
         <TextView
@@ -75,8 +72,6 @@
     <include
         android:id="@+id/navBarConstraintLayout"
         layout="@layout/navigation_bar" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

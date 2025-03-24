@@ -46,8 +46,8 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
         val email = intent.getStringExtra("email")
         val password = intent.getStringExtra("password")
 
-        val nombreLocalEditText = findViewById<EditText>(R.id.nombreLocalEditText)
-        val aforoMaximoEditText = findViewById<EditText>(R.id.aforoMaximoEditText)
+        val localNameEditText = findViewById<EditText>(R.id.localNameEditText)
+        val maximumCapacityEditText = findViewById<EditText>(R.id.maximumCapacityEditText)
 
         // Mostrar datos en Logcat para depuración
         Log.d("RegisterActivityMap", "Rol: $role")
@@ -56,13 +56,13 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
 
         // Al hacer click en el botón, recolectar la información y pasarla a la siguiente actividad
         findViewById<ImageView>(R.id.confirmButton).setOnClickListener {
-            val nombreLocal = nombreLocalEditText.text.toString()
-            val aforoMaximoText = aforoMaximoEditText.text.toString()
+            val localName = localNameEditText.text.toString()
+            val maximumCapacityText = maximumCapacityEditText.text.toString()
 
-            val aforoMaximo = aforoMaximoText.toIntOrNull()
+            val maximumCapacity = maximumCapacityText.toIntOrNull()
 
-            Log.d("RegisterActivityMap", "Nombre del local: $nombreLocal")
-            Log.d("RegisterActivityMap", "Aforo máximo: $aforoMaximo")
+            Log.d("RegisterActivityMap", "Nombre del local: $localName")
+            Log.d("RegisterActivityMap", "Aforo máximo: $localName")
 
             singleMarker?.let {
                 val latitude = it.position.latitude
@@ -78,8 +78,8 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
                 nextIntent.putExtra("password", password)
                 nextIntent.putExtra("EXTRA_LATITUDE", latitude)
                 nextIntent.putExtra("EXTRA_LONGITUDE", longitude)
-                nextIntent.putExtra("nombreLocal", nombreLocal)
-                nextIntent.putExtra("aforoMaximo", aforoMaximo)
+                nextIntent.putExtra("nombreLocal", localName)
+                nextIntent.putExtra("aforoMaximo", maximumCapacity)
 
                 startActivity(nextIntent)
                 finish()

@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -37,7 +38,8 @@ class RegisterActivityAccountType : AppCompatActivity() {
             }
 
             val intent = Intent(this, RegisterActivityPersonalData::class.java)
-            intent.putExtra("rol", selectedRole)
+            intent.putExtra("role", selectedRole)
+            Log.d("RegisterActivityAccountType", "Role: $selectedRole")
             startActivity(intent)
         }
 

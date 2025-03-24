@@ -21,29 +21,76 @@ class RegisterActivity6 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registeractivity4)
 
-        val nombreLocal = intent.getStringExtra("nombreLocal")
-        val aforoMaximo = intent.getIntExtra("aforoMaximo", 0)
-        val latitude = intent.getDoubleExtra("EXTRA_LATITUDE", 0.0)
-        val longitude = intent.getDoubleExtra("EXTRA_LONGITUDE", 0.0)
+
+
+        val role = intent.getStringExtra("role")
         val email = intent.getStringExtra("email")
         val password = intent.getStringExtra("password")
 
+        Log.d("RegisterActivity6", "Role: $role")
 
 
-        Log.d("RegisterActivity6", "Nombre del local: $nombreLocal")
-        Log.d("RegisterActivity6", "Aforo máximo: $aforoMaximo")
-        Log.d("RegisterActivity6", "Latitud del marcador: $latitude")
-        Log.d("RegisterActivity6", "Longitud del marcador: $longitude")
-        Log.d("RegisterActivity6", "Email: $email")
-        Log.d("RegisterActivity6", "Password: $password")
+
+
+        if (role.equals("Musician")) {
+
+            val artisticName = intent.getStringExtra("artisticName")
+
+            val membersNumber = intent.getIntExtra("membersNumber", 0)
+
+            val hourlyFee = intent.getDoubleExtra("hourlyFee", 0.0)
+
+            val musicalLanguage = intent.getStringExtra("musicalLanguage")
+
+
+            Log.d("RegisterActivity6", "Nombre artistico: $artisticName")
+            Log.d("RegisterActivity6", "Numero integrantes: $membersNumber")
+            Log.d("RegisterActivity6", "Tarifa horaria: $hourlyFee")
+            Log.d("RegisterActivityMap", "Idioma musical: $musicalLanguage")
+
+
+
+        } else if (role.equals("Local")){
+
+            val nombreLocal = intent.getStringExtra("nombreLocal")
+            val aforoMaximo = intent.getIntExtra("aforoMaximo", 0)
+            val latitude = intent.getDoubleExtra("EXTRA_LATITUDE", 0.0)
+            val longitude = intent.getDoubleExtra("EXTRA_LONGITUDE", 0.0)
+
+            Log.d("RegisterActivity6", "Nombre del local: $nombreLocal")
+            Log.d("RegisterActivity6", "Aforo máximo: $aforoMaximo")
+            Log.d("RegisterActivity6", "Latitud del marcador: $latitude")
+            Log.d("RegisterActivity6", "Longitud del marcador: $longitude")
+            Log.d("RegisterActivity6", "Email: $email")
+            Log.d("RegisterActivity6", "Password: $password")
+
+        }
+
+
+
+
+
+
 
 
         textViewResumen = findViewById(R.id.textViewtitle)
 
         configurarSeleccionGenero()
 
-        findViewById<View>(R.id.button).setOnClickListener { confirmarSeleccion() }
-        findViewById<View>(R.id.button2).setOnClickListener { saltarSeleccion() }
+        findViewById<View>(R.id.buttonConfirm).setOnClickListener {
+
+            confirmarSeleccion()
+
+
+
+        }
+        findViewById<View>(R.id.buttonSelectLater).setOnClickListener {
+
+
+            saltarSeleccion()
+
+
+        }
     }
 
     private fun configurarSeleccionGenero() {
@@ -74,6 +121,10 @@ class RegisterActivity6 : AppCompatActivity() {
         if (generosSeleccionados.isEmpty()) {
             Toast.makeText(this, "Selecciona al menos un género", Toast.LENGTH_SHORT).show()
             return
+        } else {
+
+
+
         }
     }
 
@@ -81,4 +132,6 @@ class RegisterActivity6 : AppCompatActivity() {
         Toast.makeText(this, "Selección de género omitida", Toast.LENGTH_SHORT).show()
         finish()
     }
+
+    //GUARDAR LOS IDIOMAS MUSICALES CON IDS
 }

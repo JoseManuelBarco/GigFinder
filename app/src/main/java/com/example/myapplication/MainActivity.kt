@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.login_activity)
 
         SocketManager.initSocket()
-//        val activityChat = Intent(this, ChatActivity::class.java)
-//        startActivity(activityChat)
+        val activityChat = Intent(this, ChatActivity::class.java)
+        startActivity(activityChat)
 
         val signupButton: ImageView = findViewById(R.id.loginButton)
         val loginTextView: TextView = findViewById(R.id.registerTextView)

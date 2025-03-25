@@ -28,7 +28,7 @@ class ChatActivity : AppCompatActivity() {
         sendMsgButton.setOnClickListener {
             println("click")
 
-            var msg = ChatMessage(1, "test msg", Date())
+            var msg = ChatMessage("send-message",1, "test msg", Date())
 
             SocketManager.sendMessage(msg)
         }

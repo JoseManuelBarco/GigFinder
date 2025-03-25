@@ -31,7 +31,7 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.register_activity3local)
+        setContentView(R.layout.register_activity_fill_account_details_local)
 
 
         Configuration.getInstance().userAgentValue = packageName
@@ -72,7 +72,7 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
                 Log.d("RegisterActivityMap", "Longitud del marcador: $longitude")
 
                 // Crear un intent para pasar todos los datos a la siguiente actividad
-                val nextIntent = Intent(this, RegisterActivity6::class.java)
+                val nextIntent = Intent(this, RegisterActivitySelectGenre::class.java)
                 nextIntent.putExtra("rol", role) // Pasar el rol
                 nextIntent.putExtra("email", email) // Pasar el email
                 nextIntent.putExtra("password", password)

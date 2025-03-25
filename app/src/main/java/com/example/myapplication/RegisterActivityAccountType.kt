@@ -11,7 +11,7 @@ class RegisterActivityAccountType : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.register_activity2)
+        setContentView(R.layout.register_activity_account_type)
 
         val imgSelectLocal = findViewById<ImageView>(R.id.imgSelectLocal)
         val imgSelectMusician = findViewById<ImageView>(R.id.imgSelectMusician)

@@ -7,10 +7,10 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.RegisterActivityFillAccountDetailsLocal.Companion.EXTRA_LATITUDE
-import com.example.myapplication.R
+import org.json.JSONArray
+import org.json.JSONObject
 
-class RegisterActivity6 : AppCompatActivity() {
+class RegisterActivitySelectGenre : AppCompatActivity() {
 
     private val generosSeleccionados = mutableListOf<String>()
     private lateinit var textViewResumen: TextView
@@ -19,14 +19,13 @@ class RegisterActivity6 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.registeractivity4)
+        setContentView(R.layout.register_activity_select_genre)
 
 
 
         val role = intent.getStringExtra("role")
         val email = intent.getStringExtra("email")
         val password = intent.getStringExtra("password")
-
         Log.d("RegisterActivity6", "Role: $role")
 
 
@@ -40,13 +39,13 @@ class RegisterActivity6 : AppCompatActivity() {
 
             val hourlyFee = intent.getDoubleExtra("hourlyFee", 0.0)
 
-            val musicalLanguage = intent.getStringExtra("musicalLanguage")
+            val langId = intent.getIntExtra("langId", -1) // -1 es el valor por defecto en caso de que no se pase el dato
 
 
             Log.d("RegisterActivity6", "Nombre artistico: $artisticName")
             Log.d("RegisterActivity6", "Numero integrantes: $membersNumber")
             Log.d("RegisterActivity6", "Tarifa horaria: $hourlyFee")
-            Log.d("RegisterActivityMap", "Idioma musical: $musicalLanguage")
+            Log.d("RegisterActivityMap", "Idioma musical: $langId")
 
 
 
@@ -65,13 +64,6 @@ class RegisterActivity6 : AppCompatActivity() {
             Log.d("RegisterActivity6", "Password: $password")
 
         }
-
-
-
-
-
-
-
 
         textViewResumen = findViewById(R.id.textViewtitle)
 
@@ -122,9 +114,68 @@ class RegisterActivity6 : AppCompatActivity() {
             Toast.makeText(this, "Selecciona al menos un género", Toast.LENGTH_SHORT).show()
             return
         } else {
+            val role = intent.getStringExtra("role")
+            val email = intent.getStringExtra("email")
+            val password = intent.getStringExtra("password")
 
+            val jsonData = if (role == "Musician") {
+                // JSON para el músico
+                val artisticName = intent.getStringExtra("artisticName")
+                val membersNumber = intent.getIntExtra("membersNumber", 0)
+                val hourlyFee = intent.getDoubleExtra("hourlyFee", 0.0)
+                val langId = intent.getIntExtra("langId", -1)
 
+                val genres = generosSeleccionados.map { genero ->
+                    // Aquí asumes que tienes un mapeo de géneros a IDs.
+                    when (genero) {
+                        "Rock" -> 1
+                        "Electrónica" -> 2
+                        "Jazz" -> 3
+                        "Pop" -> 4
+                        "Hip-hop" -> 5
+                        "Clásica" -> 6
+                        "Reggaetón" -> 7
+                        "Soundtracks" -> 8
+                        "Flauta" -> 9
+                        "Otros" -> 10
+                        else -> 0
+                    }
+                }
 
+                val musicianJson = JSONObject()
+                musicianJson.put("email", email)
+                musicianJson.put("name", artisticName)
+                musicianJson.put("description", JSONObject.NULL) // O la descripción que se proporcione
+                musicianJson.put("password", password)
+                musicianJson.put("size", membersNumber)
+                musicianJson.put("price", hourlyFee)
+                musicianJson.put("langId", langId)
+                musicianJson.put("genres", JSONArray(genres))
+
+                musicianJson.toString()
+
+            } else {
+                // JSON para el local
+                val nombreLocal = intent.getStringExtra("nombreLocal")
+                val aforoMaximo = intent.getIntExtra("aforoMaximo", 0)
+                val latitude = intent.getDoubleExtra("EXTRA_LATITUDE", 0.0)
+                val longitude = intent.getDoubleExtra("EXTRA_LONGITUDE", 0.0)
+
+                val localJson = JSONObject()
+                localJson.put("email", email)
+                localJson.put("name", nombreLocal)
+                localJson.put("description", JSONObject.NULL) // O la descripción que se proporcione
+                localJson.put("password", password)
+                localJson.put("capacity", aforoMaximo)
+                localJson.put("x_coordination", latitude)
+                localJson.put("y_coordination", longitude)
+
+                localJson.toString()
+            }
+
+            Log.d("JSON Data", jsonData)
+            // Aquí enviarías el jsonData a un servidor o lo guardarías como necesites.
+            // Ejemplo: enviar a un servidor, o guardar en preferencias compartidas.
         }
     }
 

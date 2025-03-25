@@ -1,5 +1,7 @@
 package com.example.myapplication.chats
 
+import com.example.myapplication.data.ChatMessage
+import com.example.myapplication.utils.JsonUtils
 import java.io.*
 import java.net.Socket
 
@@ -93,11 +95,13 @@ object SocketManager {
     }
 
     // Send a message to the server
-    fun sendMessage(message: String) {
+    fun sendMessage(message: ChatMessage) {
         Thread {
             try {
+                var encodedMsg: String = JsonUtils.encode(message)
+
                 if (socket?.isConnected == true) {
-                    writer?.println(message)
+                    writer?.println(encodedMsg)
                     writer?.flush()
                     System.out.println("📤 Sent: $message")
                 } else {

@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.myapplication.R
+import com.example.myapplication.data.ChatMessage
+import java.util.Date
 
 class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +27,10 @@ class ChatActivity : AppCompatActivity() {
         // Set click listener
         sendMsgButton.setOnClickListener {
             println("click")
-            SocketManager.sendMessage("click")
+
+            var msg = ChatMessage(1, "test msg", Date())
+
+            SocketManager.sendMessage(msg)
         }
     }
 }

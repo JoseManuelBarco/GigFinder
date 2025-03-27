@@ -1,10 +1,10 @@
 package com.example.myapplication.data
 
 import com.google.gson.annotations.SerializedName
-import java.util.Date
+import java.time.LocalDateTime
 
-data class ChatMessage(
+data class RefreshChats(
     @SerializedName("message_type") val messageType: String,
-    @SerializedName("chat_id") val chatId: Int,
-    @SerializedName("content") val content: String,
+    @SerializedName("date") val date: LocalDateTime
 )
+

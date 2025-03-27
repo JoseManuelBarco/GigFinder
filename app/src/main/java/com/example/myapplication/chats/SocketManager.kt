@@ -1,6 +1,7 @@
 package com.example.myapplication.chats
 
 import com.example.myapplication.data.ChatMessage
+import com.example.myapplication.data.RefreshChats
 import com.example.myapplication.utils.JsonUtils
 import java.io.*
 import java.net.Socket
@@ -53,12 +54,13 @@ object SocketManager {
 
     // Send an HTTP GET request to establish the connection
     private fun initialConnectToChat() {
-        val token = "your-token-here"  // Replace with actual token
+        val user_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMSIsImV4cCI6MTc3NDQ2NjQ1MywiaXNzIjoiZ2lnZmluZGVyIiwiYXVkIjoiZ2lnZmluZGVyIn0.muyVjtpWrzKWbIwLvHq2eMomPIkuFTxJ43T36WQ_U14"  // Replace with actual token
 
         val request =  """
     GET /user-connect HTTP/1.1
     Content-Type: application/json
     Connection: keep-alive
+    Authorization: $user_token
     
 """.trimIndent() + "\r\n"
 
@@ -94,6 +96,7 @@ object SocketManager {
         this.messageHandler = handler
     }
 
+
     // Send a message to the server
     fun sendMessage(message: ChatMessage) {
         Thread {
@@ -104,6 +107,24 @@ object SocketManager {
                     writer?.println(encodedMsg)
                     writer?.flush()
                     System.out.println("📤 Sent: $message")
+                } else {
+                    System.out.println("❌ Error: Socket is not connected")
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }.start()
+    }
+
+    fun refreshMessages(message: RefreshChats){
+        Thread {
+            try {
+                var encodedMsg: String = JsonUtils.encode(message)
+
+                if (socket?.isConnected == true) {
+                    writer?.println(encodedMsg)
+                    writer?.flush()
+                    System.out.println("📤 Sent: $encodedMsg")
                 } else {
                     System.out.println("❌ Error: Socket is not connected")
                 }

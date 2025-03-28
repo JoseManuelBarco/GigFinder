@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        layout="@layout/top_bar"
+        android:id="@+id/topBarConstraintLayout" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="700dp"
+        app:layout_constraintBottom_toTopOf="@id/navBarConstraintLayout"
+        app:layout_constraintTop_toBottomOf="@id/topBarConstraintLayout"
+        />
+
+
+    <RelativeLayout
+        android:id="@+id/profilePictureRelativeLayout"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/topBarConstraintLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/accountpicture"/>
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/camerawhiteicon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/localNameTextView"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="Local"
+        app:layout_constraintTop_toBottomOf="@+id/profilePictureRelativeLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"/>
+
+
+    <TextView
+        android:id="@+id/sendMessageTextViewButton"
+        android:layout_width="240dp"
+        android:layout_height="@dimen/loginbuttonheight"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Enviar mensaje "
+        android:gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:background="@drawable/blue_rectangle"
+        app:layout_constraintTop_toBottomOf="@+id/localNameTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"/>
+
+
+
+
+    <TextView
+        android:id="@+id/genre1TextView"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Genero 1"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/sendMessageTextViewButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/genre2TextView"
+        android:background="@color/black"
+        />
+
+    <TextView
+        android:id="@+id/genre2TextView"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Genero 2"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/sendMessageTextViewButton"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/genre1TextView"
+        />
+
+
+
+
+
+
+
+
+    <include
+        layout="@layout/navigation_bar"
+        android:id="@+id/navBarConstraintLayout" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

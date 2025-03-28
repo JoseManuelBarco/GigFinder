@@ -15,7 +15,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
 
-        SocketManager.initSocket()
+        /*SocketManager.initSocket()
+        val activityChat = Intent(this, ChatActivity::class.java)
+        activityChat.putExtra("chat_id", 1015)
+        startActivity(activityChat)*/
+
+
         val activityChat = Intent(this, ChatActivity::class.java)
         activityChat.putExtra("chat_id", 1015)
         startActivity(activityChat)

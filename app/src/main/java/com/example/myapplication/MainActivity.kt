@@ -17,9 +17,16 @@ class MainActivity : AppCompatActivity() {
         val loginTextView: TextView = findViewById(R.id.registerTextView)
 
         signupButton.setOnClickListener {
+
+            //metodo de verificación y hacer if
+
+            //limitar caracteres a 100
+
             val intent = Intent(this, RegisterActivityFillAccountDetailsLocal::class.java)
             startActivity(intent)
-        }
+        } //LA VERIFICACIÓN LA HACE EL SERVIDOR
+
+
 
         loginTextView.setOnClickListener {
             val intent = Intent(this, RegisterActivityAccountType::class.java)
@@ -38,4 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         return foundUser
     }
+
+
+
 }

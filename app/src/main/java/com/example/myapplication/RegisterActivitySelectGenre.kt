@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -51,13 +52,13 @@ class RegisterActivitySelectGenre : AppCompatActivity() {
 
         } else if (role.equals("Local")){
 
-            val nombreLocal = intent.getStringExtra("nombreLocal")
-            val aforoMaximo = intent.getIntExtra("aforoMaximo", 0)
+            val localName = intent.getStringExtra("nombreLocal")
+            val maximumCapacity = intent.getIntExtra("maximumCapacity", 0)
             val latitude = intent.getDoubleExtra("EXTRA_LATITUDE", 0.0)
             val longitude = intent.getDoubleExtra("EXTRA_LONGITUDE", 0.0)
 
-            Log.d("RegisterActivity6", "Nombre del local: $nombreLocal")
-            Log.d("RegisterActivity6", "Aforo máximo: $aforoMaximo")
+            Log.d("RegisterActivity6", "Nombre del local: $localName")
+            Log.d("RegisterActivity6", "Aforo máximo: $maximumCapacity")
             Log.d("RegisterActivity6", "Latitud del marcador: $latitude")
             Log.d("RegisterActivity6", "Longitud del marcador: $longitude")
             Log.d("RegisterActivity6", "Email: $email")
@@ -72,6 +73,12 @@ class RegisterActivitySelectGenre : AppCompatActivity() {
         findViewById<View>(R.id.buttonConfirm).setOnClickListener {
 
             confirmarSeleccion()
+
+            //crear objeto de usuario
+
+            var intent = Intent(this, MusicianOpportunitiesActivity::class.java)
+
+            startActivity(intent)
 
 
 
@@ -178,11 +185,48 @@ class RegisterActivitySelectGenre : AppCompatActivity() {
             // Ejemplo: enviar a un servidor, o guardar en preferencias compartidas.
         }
     }
-
     private fun saltarSeleccion() {
-        Toast.makeText(this, "Selección de género omitida", Toast.LENGTH_SHORT).show()
-        finish()
-    }
+        val role = intent.getStringExtra("role")
+        val email = intent.getStringExtra("email")
+        val password = intent.getStringExtra("password")
 
-    //GUARDAR LOS IDIOMAS MUSICALES CON IDS
+        val jsonData = if (role == "Musician") {
+            // JSON para el músico con géneros como null
+            val artisticName = intent.getStringExtra("artisticName")
+            val membersNumber = intent.getIntExtra("membersNumber", 0)
+            val hourlyFee = intent.getDoubleExtra("hourlyFee", 0.0)
+            val langId = intent.getIntExtra("langId", -1)
+
+            val musicianJson = JSONObject()
+            musicianJson.put("email", email)
+            musicianJson.put("name", artisticName)
+            musicianJson.put("description", JSONObject.NULL)
+            musicianJson.put("password", password)
+            musicianJson.put("size", membersNumber)
+            musicianJson.put("price", hourlyFee)
+            musicianJson.put("langId", langId)
+            musicianJson.put("genres", JSONObject.NULL) // Géneros omitidos
+
+            musicianJson.toString()
+
+        } else {
+            // JSON para el local
+            val nombreLocal = intent.getStringExtra("nombreLocal")
+            val aforoMaximo = intent.getIntExtra("aforoMaximo", 0)
+            val latitude = intent.getDoubleExtra("EXTRA_LATITUDE", 0.0)
+            val longitude = intent.getDoubleExtra("EXTRA_LONGITUDE", 0.0)
+
+            val localJson = JSONObject()
+            localJson.put("email", email)
+            localJson.put("name", nombreLocal)
+            localJson.put("description", JSONObject.NULL)
+            localJson.put("password", password)
+            localJson.put("capacity", aforoMaximo)
+            localJson.put("x_coordination", latitude)
+            localJson.put("y_coordination", longitude)
+
+            localJson.toString()
+        }
+
+    }
 }

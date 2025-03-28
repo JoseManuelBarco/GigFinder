@@ -6,16 +6,21 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.objects.User
 
 class RegisterActivityAccountType : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.register_activity2)
+        setContentView(R.layout.register_activity_account_type)
 
         val imgSelectLocal = findViewById<ImageView>(R.id.imgSelectLocal)
         val imgSelectMusician = findViewById<ImageView>(R.id.imgSelectMusician)
         val signupButton = findViewById<ImageView>(R.id.signupButton)
+
+
+
+
 
         var selectedRole: String? = null
 
@@ -35,7 +40,12 @@ class RegisterActivityAccountType : AppCompatActivity() {
             if (selectedRole == null) {
                 Toast.makeText(this, "Por favor, selecciona un rol", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
+            } else {
+
+
+
             }
+
 
             val intent = Intent(this, RegisterActivityPersonalData::class.java)
             intent.putExtra("role", selectedRole)

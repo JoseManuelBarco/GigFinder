@@ -17,21 +17,22 @@ import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.MapEventsOverlay
 import org.osmdroid.events.MapEventsReceiver
 import android.widget.ImageView
+import com.example.myapplication.objects.Local
+import com.example.myapplication.objects.User
 
 class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
     private lateinit var osmMapView: MapView
     private var singleMarker: Marker? = null
 
-
     companion object {
         private const val REQUEST_LOCATION_PERMISSION = 1
-        const val EXTRA_LATITUDE = "EXTRA_LATITUDE"
-        const val EXTRA_LONGITUDE = "EXTRA_LONGITUDE"
+        //const val EXTRA_LATITUDE = "EXTRA_LATITUDE"
+       //const val EXTRA_LONGITUDE = "EXTRA_LONGITUDE"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.register_activity3local)
+        setContentView(R.layout.register_activity_fill_account_details_local)
 
 
         Configuration.getInstance().userAgentValue = packageName
@@ -41,6 +42,10 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
         checkLocationPermission() // Verificar permisos de ubicación
 
         setupMapTouchOverlay() // Configurar la superposición de eventos en el mapa
+
+        var xcoord = 0.0
+
+        var ycoord = 0.0
 
         val role = intent.getStringExtra("rol")
         val email = intent.getStringExtra("email")
@@ -68,11 +73,39 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
                 val latitude = it.position.latitude
                 val longitude = it.position.longitude
 
+                xcoord = latitude;
+                ycoord = longitude;
+
+                val user = User(
+                    name = localName,
+                    email = email.toString(),
+                    password = password.toString(),
+                    rol = role.toString(),
+                               );
+
+
+
+                val local = Local(
+                    idUser = null, // Puedes asignar un valor predeterminado o hacerlo dinámico
+                    name = localName,
+                    description = "No description", // Puedes pasar un valor predeterminado o editar este campo
+                    email = email.toString(),
+                    password = password.toString(),
+                    rol = role.toString(),
+                    avg_rating = 0, // Puedes poner un valor predeterminado, o recibir este dato si es necesario
+                    image_identifier = "default_image", // Valor predeterminado
+                    capacity = maximumCapacity ?: 0, // Asegúrate de que este valor sea correcto
+                    x_coord = xcoord, // Latitud del marcador
+                    y_coord = ycoord // Longitud del marcador
+                                 )
+
+//asterisco subir a la base de datos asterisco negro negro negro negro negro negro negro negro negro negro NEGRATA TRANSEXUAL CON CHOCHO DE PLASTICO
+
                 Log.d("RegisterActivityMap", "Latitud del marcador: $latitude")
                 Log.d("RegisterActivityMap", "Longitud del marcador: $longitude")
 
                 // Crear un intent para pasar todos los datos a la siguiente actividad
-                val nextIntent = Intent(this, RegisterActivity6::class.java)
+                val nextIntent = Intent(this, RegisterActivitySelectGenre::class.java)
                 nextIntent.putExtra("rol", role) // Pasar el rol
                 nextIntent.putExtra("email", email) // Pasar el email
                 nextIntent.putExtra("password", password)
@@ -86,6 +119,17 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
             } ?: run {
                 Log.d("RegisterActivityMap", "No se ha seleccionado un marcador.")
             }
+
+
+
+
+            //AQUI SUBIR A LA BASE DE DATOS EL USUARIO
+
+
+
+
+
+
         }
     }
 

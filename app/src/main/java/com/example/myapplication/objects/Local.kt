@@ -1,7 +1,7 @@
 package com.example.myapplication.objects
 
 class Local(
-                idUser: Int,
+    idUser: Int? = null,  // Cambiado a nullable para que la base de datos lo asigne
                 name: String,
                 description: String,
                 email: String,

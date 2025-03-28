@@ -15,6 +15,7 @@
     <string name="local">Local</string>
     <string name="warningAccountType">¡Asegurate, una vez elegido no lo podrás cambiar!</string>
     <string name="confirm">Confirmar</string>
+    <string name="type_a_message">Escribe un mensage...</string>
     <string-array name="musical_languages">
         <item>Español</item>
         <item>Inglés</item>

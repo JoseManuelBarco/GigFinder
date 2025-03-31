@@ -1,6 +1,10 @@
 package com.example.myapplication.chats
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.example.myapplication.constants.SocketMessageTypes
 import com.example.myapplication.data.ChatMessage
+import com.example.myapplication.data.SendChatMessageBody
 import com.example.myapplication.data.RefreshChats
 import com.example.myapplication.utils.JsonUtils
 import java.io.*
@@ -70,6 +74,7 @@ object SocketManager {
     }
 
     // Listen for incoming messages and pass them to the handler
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun listenForMessages() {
         Thread {
             try {
@@ -82,6 +87,43 @@ object SocketManager {
                         break
                     }
                     System.out.println("📩 Received: $line")
+
+                    val obj = JsonUtils.getObject(line)
+                    if(obj == null) continue;
+
+                    println("obj: " + obj)
+                    val messageType = obj?.get("type")?.asString
+//                    println("message data: ")
+//                    println(data)
+                    if(messageType != null){
+                        when(messageType){
+                            SocketMessageTypes.RESPONSE_SINGLE_MESSAGE -> {
+                                println("handle send message")
+                                val data = obj?.getAsJsonObject("data")
+                                if (data != null) {
+                                    var msg = JsonUtils.decode<ChatMessage>(data)
+                                    ChatService.addMessage(msg)
+                                }
+                            }
+                            SocketMessageTypes.RESPONSE_REFRESH_MESSAGE -> {
+                                println("handle refresh messages")
+                                val dataArray = obj?.getAsJsonArray("data")
+                                if (dataArray != null) {
+                                    val decodedMsgsList = mutableListOf<ChatMessage>()
+
+                                    for (data in dataArray) {
+                                        var msg = JsonUtils.decode<ChatMessage>(data)
+                                        decodedMsgsList.add(msg)
+                                    }
+                                    ChatService.addMessages(decodedMsgsList)
+                                }
+                            }
+                            SocketMessageTypes.RESPONSE_CONNECT -> {
+                                ChatService.refreshMessages()
+                            }
+                        }
+
+                    }
                     messageHandler?.invoke(line) // Trigger callback with received message
                 }
             } catch (e: IOException) {
@@ -98,7 +140,8 @@ object SocketManager {
 
 
     // Send a message to the server
-    fun sendMessage(message: ChatMessage) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun sendMessage(message: SendChatMessageBody) {
         Thread {
             try {
                 var encodedMsg: String = JsonUtils.encode(message)
@@ -116,6 +159,7 @@ object SocketManager {
         }.start()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun refreshMessages(message: RefreshChats){
         Thread {
             try {

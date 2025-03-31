@@ -4,6 +4,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import java.time.LocalDateTime
@@ -25,14 +27,18 @@ object JsonUtils {
         return gson.fromJson(json, object : TypeToken<T>() {}.type)
     }
 
-    fun getMessageType(msg: String?): String? {
+    @RequiresApi(Build.VERSION_CODES.O)
+    inline fun <reified T> decode(json: JsonElement): T {
+        return gson.fromJson(json, object : TypeToken<T>() {}.type)
+    }
+
+
+    fun getObject(msg: String?): JsonObject? {
         try {
             val gson = Gson()
             val jsonObject = JsonParser.parseString(msg).asJsonObject
 
-            // Get message_type
-            val messageType = jsonObject["message_type"].asString
-            return messageType
+            return jsonObject
         } catch (e: Exception) {
             return null
         }

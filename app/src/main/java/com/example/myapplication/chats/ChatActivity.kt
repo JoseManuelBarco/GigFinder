@@ -1,9 +1,7 @@
 package com.example.myapplication.chats
 
-import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
@@ -11,15 +9,20 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.constants.SocketMessageTypes
 import com.example.myapplication.data.ChatMessage
-import com.example.myapplication.data.RefreshChats
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Date
+import com.example.myapplication.data.SendChatMessageBody
 
-class ChatActivity : AppCompatActivity() {
+class ChatActivity : AppCompatActivity(), RefreshMsgs {
+
+    private var chatId: Int = 0;
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var chatAdapter: ChatAdapter
+    private var messagesList: List<ChatMessage> = mutableListOf()
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +34,19 @@ class ChatActivity : AppCompatActivity() {
             insets
         }
 
-        val chat_id = intent.getIntExtra("chat_id", 0);
+        // initialize variables
+        recyclerView = findViewById(R.id.messagesList)
+        chatId = intent.getIntExtra("chat_id", 0);
 
-        // Get button by ID
+        // set this activity at chat service as activity to refresh
+        ChatService.updateActivityToRefresh(this)
+
+        // get initial messages
+        this.refreshMessages()
+
+
+        // Set send msg click listener
         val sendMsgButton: ImageView = findViewById(R.id.sendMsg)
-
-        // Set click listener
         sendMsgButton.setOnClickListener {
             val messageInput: EditText = findViewById(R.id.messageInput)
             val message = messageInput.text.toString()
@@ -49,25 +59,25 @@ class ChatActivity : AppCompatActivity() {
                 println(message)
 
                 // create msg and send it
-                var msg = ChatMessage(SocketMessageTypes.SEND_MESSAGE,chat_id, message,)
+                var msg = SendChatMessageBody(SocketMessageTypes.SEND_MESSAGE, chatId, message,)
                 SocketManager.sendMessage(msg)
             }
-
-//            var msg = ChatMessage("send-message",1015, "test msg",)
-//            SocketManager.sendMessage(msg)
-//
-//            val dateStr = "2025-03-27 17:37:00.000"
-//
-//            // Define the DateTimeFormatter with the pattern that matches the string format
-//            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
-//
-//            // Parse the string to LocalDateTime
-//            val localDateTime = LocalDateTime.parse(dateStr, formatter)
-//
-//            var msg = RefreshChats("refresh-messages",localDateTime)
-//
-//            SocketManager.refreshMessages(msg)
-
         }
+    }
+
+    override fun runOnUiThread(function: () -> Unit) {
+        super.runOnUiThread(function) // Use Activity's method
+    }
+
+    fun renderMessages(){
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        chatAdapter = ChatAdapter(messagesList, 1)
+        recyclerView.adapter = chatAdapter
+        recyclerView.scrollToPosition(chatAdapter.itemCount - 1)
+    }
+
+    override fun refreshMessages() {
+        messagesList = ChatService.getMessagesByChatId(this.chatId)
+        renderMessages()
     }
 }

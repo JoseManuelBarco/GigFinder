@@ -66,6 +66,7 @@
         android:id="@+id/messagesList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/gigfinder_chats_bg_2"
         app:layout_constraintTop_toBottomOf="@id/topBar"
         app:layout_constraintBottom_toTopOf="@id/bottomBar"
         android:padding="8dp" />

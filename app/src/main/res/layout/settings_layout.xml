@@ -5,10 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/publicProfileConstraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.485">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/accountpicture"
+            app:layout_constraintEnd_toStartOf="@+id/textView17"
+            app:layout_constraintHorizontal_bias="0.727"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:gravity="center|left"
+            android:text="Account name"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.509" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginBottom="30dp"
+        android:id="@+id/publicProfileConstraintLayout"
         android:layout_width="300dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout12"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/personalDataConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent">
@@ -20,7 +59,8 @@
             app:layout_constraintEnd_toStartOf="@+id/textView11"
             app:layout_constraintHorizontal_bias="0.464"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/publicprofileicon"/>
 
         <TextView
             android:id="@+id/textView11"
@@ -33,15 +73,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.506" />
+            app:layout_constraintVertical_bias="0.506"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout12"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/personalDataConstraintLayout"
         android:layout_width="300dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout13"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/accesibilityConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent">
@@ -52,7 +93,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView12"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/personaldataicon" />
 
         <TextView
             android:id="@+id/textView12"
@@ -65,15 +107,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.506" />
+            app:layout_constraintVertical_bias="0.506"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout13"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/accesibilityConstraintLayout"
         android:layout_width="300dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout14"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/languageConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent">
@@ -84,7 +127,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView13"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/accesibilityicon"/>
 
         <TextView
             android:id="@+id/textView13"
@@ -102,11 +146,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout14"
+        android:id="@+id/languageConstraintLayout"
         android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout15"
+        android:layout_height="70dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/statisticsConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent">
@@ -117,7 +161,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView15"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/languageicon"/>
 
         <TextView
             android:id="@+id/textView15"
@@ -135,10 +180,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout15"
+        android:id="@+id/statisticsConstraintLayout"
         android:layout_width="300dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout16"
+        android:layout_height="70dp"
+        android:layout_marginBottom="30dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/technicalServiceConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent">
@@ -149,7 +196,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView14"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/statisticsicon"/>
 
         <TextView
             android:id="@+id/textView14"
@@ -166,16 +214,16 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include
-        layout="@layout/navigation_bar"
-        android:id="@+id/navBarConstraintLayout" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout16"
+        android:id="@+id/technicalServiceConstraintLayout"
         android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="168dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="118dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteX="55dp">
 
         <ImageView
@@ -184,7 +232,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView16"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/technicalserviceicon"/>
 
         <TextView
             android:id="@+id/textView16"
@@ -200,4 +249,11 @@
             app:layout_constraintVertical_bias="0.506" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <include
+        layout="@layout/navigation_bar"
+        android:id="@+id/navBarConstraintLayout" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

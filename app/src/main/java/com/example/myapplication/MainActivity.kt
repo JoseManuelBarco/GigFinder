@@ -15,7 +15,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
 
-        SocketManager.initSocket()
+        /*SocketManager.initSocket()
+        val activityChat = Intent(this, ChatActivity::class.java)
+        activityChat.putExtra("chat_id", 1015)
+        startActivity(activityChat)*/
+
+
         val activityChat = Intent(this, ChatActivity::class.java)
         activityChat.putExtra("chat_id", 1015)
         startActivity(activityChat)
@@ -24,9 +29,16 @@ class MainActivity : AppCompatActivity() {
         val loginTextView: TextView = findViewById(R.id.registerTextView)
 
         signupButton.setOnClickListener {
+
+            //metodo de verificación y hacer if
+
+            //limitar caracteres a 100
+
             val intent = Intent(this, RegisterActivityFillAccountDetailsLocal::class.java)
             startActivity(intent)
-        }
+        } //LA VERIFICACIÓN LA HACE EL SERVIDOR
+
+
 
         loginTextView.setOnClickListener {
             val intent = Intent(this, RegisterActivityAccountType::class.java)
@@ -45,4 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         return foundUser
     }
+
+
+
 }

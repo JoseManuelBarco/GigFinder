@@ -17,9 +17,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.login_activity)
 
         ChatService.init()
-//        val activityChat = Intent(this, ChatActivity::class.java)
-//        activityChat.putExtra("chat_id", 1015)
-//        startActivity(activityChat)
+        val activityChat = Intent(this, ChatActivity::class.java)
+        activityChat.putExtra("chat_id", 1015)
+        startActivity(activityChat)
 
         val signupButton: ImageView = findViewById(R.id.loginButton)
         val loginTextView: TextView = findViewById(R.id.registerTextView)

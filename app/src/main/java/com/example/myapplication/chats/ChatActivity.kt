@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.constants.SocketMessageTypes
-import com.example.myapplication.data.ChatMessage
-import com.example.myapplication.data.SendChatMessageBody
+import com.example.myapplication.chats.data.ChatMessage
+import com.example.myapplication.chats.data.SendChatMessageBody
 
 class ChatActivity : AppCompatActivity(), RefreshMsgs {
 

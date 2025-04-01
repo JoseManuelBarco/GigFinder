@@ -3,9 +3,9 @@ package com.example.myapplication.chats
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.myapplication.constants.SocketMessageTypes
-import com.example.myapplication.data.ChatMessage
-import com.example.myapplication.data.SendChatMessageBody
-import com.example.myapplication.data.RefreshChats
+import com.example.myapplication.chats.data.ChatMessage
+import com.example.myapplication.chats.data.SendChatMessageBody
+import com.example.myapplication.chats.data.RefreshChats
 import com.example.myapplication.utils.JsonUtils
 import java.io.*
 import java.net.Socket

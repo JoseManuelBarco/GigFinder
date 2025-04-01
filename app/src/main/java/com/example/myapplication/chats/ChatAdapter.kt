@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.data.ChatMessage
+import com.example.myapplication.chats.data.ChatMessage
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

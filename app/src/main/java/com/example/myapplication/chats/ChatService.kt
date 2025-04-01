@@ -4,9 +4,9 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.constants.SocketMessageTypes
-import com.example.myapplication.data.ChatMessage
-import com.example.myapplication.data.SendChatMessageBody
-import com.example.myapplication.data.RefreshChats
+import com.example.myapplication.chats.data.ChatMessage
+import com.example.myapplication.chats.data.SendChatMessageBody
+import com.example.myapplication.chats.data.RefreshChats
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

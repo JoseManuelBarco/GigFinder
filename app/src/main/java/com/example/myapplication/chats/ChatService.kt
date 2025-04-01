@@ -49,11 +49,15 @@ object ChatService {
 
     @RequiresApi(Build.VERSION_CODES.O)
     public fun refershChatRooms(){
-        var msg = RefreshChatRooms()
-        SocketManager.refreshChats(msg)
+        SocketManager.refreshChats()
     }
     @RequiresApi(Build.VERSION_CODES.O)
     public fun addMessage(msg: ChatMessage){
+        var chatIdExists = doesChatExist(msg.chatRoom.id)
+        if(!chatIdExists){
+            SocketManager.refreshChats()
+        }
+
         this.refreshActivity()
         messagesList.add(msg)
     }
@@ -63,6 +67,9 @@ object ChatService {
         this.refreshActivity()
     }
 
+    fun doesChatExist(chatId: Int): Boolean {
+        return chatRoomsList.any { it.id == chatId }
+    }
 
     public fun addChatRoomlist(chatRooms: List<ChatRoom>){
         chatRoomsList.addAll(chatRooms)

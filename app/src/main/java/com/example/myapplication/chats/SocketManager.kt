@@ -197,9 +197,11 @@ object SocketManager {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun refreshChats(message: RefreshChatRooms){
+    fun refreshChats(){
         Thread {
             try {
+                var message = RefreshChatRooms()
+
                 var encodedMsg: String = JsonUtils.encode(message)
 
                 if (socket?.isConnected == true) {

@@ -4,6 +4,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.myapplication.constants.SocketMessageTypes
 import com.example.myapplication.chats.data.ChatMessage
+import com.example.myapplication.chats.data.ChatRoom
+import com.example.myapplication.chats.data.RefreshChatRooms
 import com.example.myapplication.chats.data.SendChatMessageBody
 import com.example.myapplication.chats.data.RefreshChats
 import com.example.myapplication.utils.JsonUtils
@@ -22,6 +24,7 @@ object SocketManager {
     private var onDisconnected: (() -> Unit)? = null
 
     // Initialize the socket connection
+    @RequiresApi(Build.VERSION_CODES.O)
     fun initSocket(onConnected: (() -> Unit)? = null, onDisconnected: (() -> Unit)? = null): Boolean {
         System.out.println("🟡 Starting socket initialization...")
 
@@ -91,12 +94,26 @@ object SocketManager {
                     val obj = JsonUtils.getObject(line)
                     if(obj == null) continue;
 
-                    println("obj: " + obj)
+                    println("message received with obj: " + obj)
                     val messageType = obj?.get("type")?.asString
+                    println("=========== message receivedwith type: " + messageType)
 //                    println("message data: ")
 //                    println(data)
                     if(messageType != null){
                         when(messageType){
+                            SocketMessageTypes.RESPONSE_GET_CHATS -> {
+                                println("handle get chats")
+                                var dataChats = obj?.getAsJsonArray("data")
+                                println("data chats: " + dataChats)
+                                if (dataChats != null){
+                                    var decodedChatsList = mutableListOf<ChatRoom>()
+                                    for (data in dataChats){
+                                        var room = JsonUtils.decode<ChatRoom>(data)
+                                        decodedChatsList.add(room)
+                                    }
+                                    ChatService.addChatRoomlist(decodedChatsList)
+                                }
+                            }
                             SocketMessageTypes.RESPONSE_SINGLE_MESSAGE -> {
                                 println("handle send message")
                                 val data = obj?.getAsJsonObject("data")
@@ -120,6 +137,7 @@ object SocketManager {
                             }
                             SocketMessageTypes.RESPONSE_CONNECT -> {
                                 ChatService.refreshMessages()
+                                ChatService.refershChatRooms()
                             }
                         }
 
@@ -168,7 +186,7 @@ object SocketManager {
                 if (socket?.isConnected == true) {
                     writer?.println(encodedMsg)
                     writer?.flush()
-                    System.out.println("📤 Sent: $encodedMsg")
+                    System.out.println("📤 Refresh messages sent: $encodedMsg")
                 } else {
                     System.out.println("❌ Error: Socket is not connected")
                 }
@@ -177,6 +195,26 @@ object SocketManager {
             }
         }.start()
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun refreshChats(message: RefreshChatRooms){
+        Thread {
+            try {
+                var encodedMsg: String = JsonUtils.encode(message)
+
+                if (socket?.isConnected == true) {
+                    writer?.println(encodedMsg)
+                    writer?.flush()
+                    System.out.println("📤 Refresh chat roooms sent: $encodedMsg")
+                } else {
+                    System.out.println("❌ Error: Socket is not connected")
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }.start()
+    }
+
 
     // Notify when socket is disconnected
     private fun notifyDisconnected() {

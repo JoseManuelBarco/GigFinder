@@ -12,4 +12,6 @@
     <dimen name="textmusicbuttonsize">15sp</dimen>
     <dimen name="textMessage">24sp</dimen>
     <dimen name="textDate">16sp</dimen>
+    <dimen name="chatRoomUserName">24sp</dimen>
+    <dimen name="chatRoomUserImage">48sp</dimen>
 </resources>

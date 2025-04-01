@@ -5,15 +5,24 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.constants.SocketMessageTypes
 import com.example.myapplication.chats.data.ChatMessage
+import com.example.myapplication.chats.data.ChatRoom
+import com.example.myapplication.chats.data.RefreshChatRooms
 import com.example.myapplication.chats.data.SendChatMessageBody
 import com.example.myapplication.chats.data.RefreshChats
+import java.net.HttpURLConnection
+import java.net.URL
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 object ChatService {
     private var messagesList: MutableList<ChatMessage> = mutableListOf();
-    private var activityToRefresh: RefreshMsgs? = null
+    public var chatRoomsList: MutableList<ChatRoom> = mutableListOf()
 
+    private var activityToRefresh: RefreshMsgs? = null
+    private var baseUrl = "http://172.20.10.3:12345"
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
     public fun init(){
         try{
             SocketManager.initSocket()
@@ -22,6 +31,10 @@ object ChatService {
             e.printStackTrace()
         }
         // init socket
+    }
+
+    fun getChatrooms(): MutableList<ChatRoom> {
+       return chatRoomsList;
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -33,6 +46,12 @@ object ChatService {
         var msg = RefreshChats(SocketMessageTypes.REFRESH_MESSAGES,localDateTime)
         SocketManager.refreshMessages(msg)
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    public fun refershChatRooms(){
+        var msg = RefreshChatRooms()
+        SocketManager.refreshChats(msg)
+    }
     @RequiresApi(Build.VERSION_CODES.O)
     public fun addMessage(msg: ChatMessage){
         this.refreshActivity()
@@ -42,6 +61,11 @@ object ChatService {
     public fun addMessages(msgs: List<ChatMessage>){
         messagesList.addAll(msgs)
         this.refreshActivity()
+    }
+
+
+    public fun addChatRoomlist(chatRooms: List<ChatRoom>){
+        chatRoomsList.addAll(chatRooms)
     }
 
     fun getMessagesByChatId(chatId: Int): List<ChatMessage> {

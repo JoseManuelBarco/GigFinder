@@ -1,9 +1,11 @@
 package com.example.myapplication.chats
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -37,14 +39,22 @@ class ChatActivity : AppCompatActivity(), RefreshMsgs {
         // initialize variables
         recyclerView = findViewById(R.id.messagesList)
         chatId = intent.getIntExtra("chat_id", 0);
+        val username = intent.getStringExtra("user_name")
 
         // set this activity at chat service as activity to refresh
         ChatService.updateActivityToRefresh(this)
 
         // get initial messages
         this.refreshMessages()
-
-
+        // Add user name
+        val userNameElement: TextView = findViewById(R.id.username)
+        userNameElement.text = username
+        // Add back click listener
+        val backClicListener: ImageView = findViewById((R.id.backButton))
+        backClicListener.setOnClickListener {
+            val activityChatList = Intent(this, ChatListActivity::class.java)
+            startActivity(activityChatList)
+        }
         // Set send msg click listener
         val sendMsgButton: ImageView = findViewById(R.id.sendMsg)
         sendMsgButton.setOnClickListener {

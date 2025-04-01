@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.chats.ChatActivity
+import com.example.myapplication.chats.ChatService
 import com.example.myapplication.chats.SocketManager
 import com.example.myapplication.objects.User
 import org.mindrot.jbcrypt.BCrypt
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
 
-        SocketManager.initSocket()
+        ChatService.init()
 //        val activityChat = Intent(this, ChatActivity::class.java)
 //        activityChat.putExtra("chat_id", 1015)
 //        startActivity(activityChat)

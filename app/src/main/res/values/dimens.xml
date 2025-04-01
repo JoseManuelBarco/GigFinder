@@ -10,5 +10,6 @@
     <dimen name="textboxloginheigth">60dp</dimen>
     <dimen name="buttonmusicwidth">25dp</dimen>
     <dimen name="textmusicbuttonsize">15sp</dimen>
-
+    <dimen name="textMessage">24sp</dimen>
+    <dimen name="textDate">16sp</dimen>
 </resources>

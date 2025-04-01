@@ -13,13 +13,13 @@
         android:background="@drawable/bubble_received"
         android:padding="8dp"
         android:textColor="@android:color/black"
-        android:textSize="14sp" />
+        android:textSize="@dimen/textMessage" />
 
     <TextView
         android:id="@+id/txtDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textColor="@android:color/darker_gray"
-        android:paddingTop="4dp" />
+        android:textSize="@dimen/textDate"
+        android:textColor="@color/grey"
+        android:paddingTop="4sp" />
 </LinearLayout>

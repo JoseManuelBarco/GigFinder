@@ -20,8 +20,6 @@ class ChatAdapter(private val messages: List<ChatMessage>, private val userId: I
     }
 
     override fun getItemViewType(position: Int): Int {
-        var sender = messages[position].sender
-        println("getting view type for userid: $userId and sender: $sender")
         return if (messages[position].sender == userId) VIEW_TYPE_SENT else VIEW_TYPE_RECEIVED
     }
 
@@ -31,7 +29,6 @@ class ChatAdapter(private val messages: List<ChatMessage>, private val userId: I
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
-        println("view type: $viewType")
         val layout = if (viewType == VIEW_TYPE_SENT) {
             R.layout.item_chat_message_sent // ✅ New XML for sent messages
         } else {

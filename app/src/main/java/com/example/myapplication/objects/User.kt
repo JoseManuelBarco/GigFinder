@@ -1,6 +1,6 @@
 package com.example.myapplication.objects
 
- open class User(
+open class User(
      private val idUser: Int? = null,  // idUser es nullable para ser asignado por la base de datos
      private val name: String,
      private val description: String = "No description", // Valor predeterminado

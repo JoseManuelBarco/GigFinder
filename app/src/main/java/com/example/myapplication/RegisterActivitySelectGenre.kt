@@ -118,30 +118,24 @@ class RegisterActivitySelectGenre : AppCompatActivity() {
     }
 
     private fun processRegistration(skipGenres: Boolean = false) {
-        // Creamos los datos según el rol
         val selectedGenres = if (!skipGenres) generosSeleccionados.map { genreMap[it] ?: 0 } else emptyList()
 
         val userData = when (role) {
             "Musician" -> {
                 val artisticName = intent.getStringExtra("artisticName").toString()
                 val membersNumber = intent.getIntExtra("membersNumber", 0)
-                val hourlyFee = intent.getIntExtra("hourlyFee", 0) // Cambiado a int
-                val langId = 1 // Esto debe ser el ID del lenguaje, puedes modificarlo si es necesario
+                val hourlyFee = intent.getIntExtra("hourlyFee", 0)
+                val langId = 1
 
                 Musician(
-                    idUser = 0, // Puede ser asignado por la base de datos
                     name = artisticName,
                     description = "Descripcion del músico",
                     email = email,
                     password = password,
-                    rol = "Musician",  // O el rol que se necesita
-                    avg_rating = 0,  // Default o asignar si es necesario
-                    image_identifier = "", // Default o asignar si es necesario
                     size = membersNumber,
                     price = hourlyFee,
-                    genres = selectedGenres,  // Lista de géneros seleccionados
-                    langId = langId // Añadido langId
-                        )
+                    genres = selectedGenres,
+                    langId = langId)
             }
             "Local" -> {
                 val localName = intent.getStringExtra("localName").toString()
@@ -150,14 +144,10 @@ class RegisterActivitySelectGenre : AppCompatActivity() {
                 val longitude = intent.getDoubleExtra("EXTRA_LONGITUDE", 0.0)
 
                 Local(
-                    idUser = null,  // Puede ser asignado por la base de datos
                     name = localName,
                     description = "Descripcion del local",
                     email = email,
                     password = password,
-                    rol = "Local", // O el rol que se necesita
-                    avg_rating = 0,  // Default o asignar si es necesario
-                    image_identifier = "",  // Default o asignar si es necesario
                     capacity = maximumCapacity,
                     x_coord = latitude,
                     y_coord = longitude

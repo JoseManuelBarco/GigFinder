@@ -30,6 +30,8 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
        //const val EXTRA_LONGITUDE = "EXTRA_LONGITUDE"
     }
 
+    private val TAG = "MusicianOpportunities"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_activity_fill_account_details_local)
@@ -55,9 +57,9 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
         val maximumCapacityEditText = findViewById<EditText>(R.id.maximumCapacityEditText)
 
         // Mostrar datos en Logcat para depuración
-        Log.d("RegisterActivityMap", "Rol: $role")
-        Log.d("RegisterActivityMap", "Email: $email")
-        Log.d("RegisterActivityMap", "Contraseña: $password")
+        Log.d("RegisterActivityLocalMap", "Rol: $role")
+        Log.d("RegisterActivityLocalMap", "Email: $email")
+        Log.d("RegisterActivityLocalMap", "Contraseña: $password")
 
         // Al hacer click en el botón, recolectar la información y pasarla a la siguiente actividad
         findViewById<ImageView>(R.id.confirmButton).setOnClickListener {
@@ -76,12 +78,6 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
                 xcoord = latitude;
                 ycoord = longitude;
 
-                val user = User(
-                    name = localName,
-                    email = email.toString(),
-                    password = password.toString(),
-                    rol = role.toString(),
-                               );
 
 
 
@@ -99,39 +95,29 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
                     y_coord = ycoord // Longitud del marcador
                                  )
 
-//asterisco subir a la base de datos asterisco negro negro negro negro negro negro negro negro negro negro NEGRATA TRANSEXUAL CON CHOCHO DE PLASTICO
-
-                Log.d("RegisterActivityMap", "Latitud del marcador: $latitude")
-                Log.d("RegisterActivityMap", "Longitud del marcador: $longitude")
+                Log.d("RegisterActivityLocalMap", "Latitud del marcador: $latitude")
+                Log.d("RegisterActivityLocalMap", "Longitud del marcador: $longitude")
 
                 // Crear un intent para pasar todos los datos a la siguiente actividad
                 val nextIntent = Intent(this, RegisterActivitySelectGenre::class.java)
-                nextIntent.putExtra("rol", role) // Pasar el rol
+                nextIntent.putExtra("role", role) // Pasar el rol
                 nextIntent.putExtra("email", email) // Pasar el email
                 nextIntent.putExtra("password", password)
                 nextIntent.putExtra("EXTRA_LATITUDE", latitude)
                 nextIntent.putExtra("EXTRA_LONGITUDE", longitude)
-                nextIntent.putExtra("nombreLocal", localName)
-                nextIntent.putExtra("aforoMaximo", maximumCapacity)
+                nextIntent.putExtra("localName", localName)
+                nextIntent.putExtra("maximumCapacity", maximumCapacity)
 
                 startActivity(nextIntent)
                 finish()
             } ?: run {
                 Log.d("RegisterActivityMap", "No se ha seleccionado un marcador.")
             }
-
-
-
-
             //AQUI SUBIR A LA BASE DE DATOS EL USUARIO
-
-
-
-
-
-
         }
     }
+
+
 
     private fun setupMapTouchOverlay() {
         osmMapView.overlays.add(MapEventsOverlay(object : MapEventsReceiver {
@@ -185,13 +171,23 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
         }
     }
 
-    // Método para centrar el mapa en Barcelona
     private fun centerMapOnBarcelona() {
-        val barcelona = GeoPoint(41.3784, 2.1925)  // Coordenadas de Barcelona
-        osmMapView.controller.setCenter(barcelona)
-        osmMapView.controller.setZoom(15.0)
+        val barcelona = GeoPoint(41.3851, 2.1734)  // Coordenadas más precisas del centro de Barcelona
+        try {
+            // Configura el zoom primero
+            osmMapView.controller.setZoom(15.0)
 
-        Log.d("RegisterActivityMap", "Permiso no concedido o ubicación no disponible. Centrado en Barcelona.")
+            // Luego establece el centro
+            osmMapView.controller.animateTo(barcelona)
+
+            // Alternativa más directa:
+            // osmMapView.controller.setCenter(barcelona)
+            // osmMapView.controller.setZoom(15.0)
+
+            Log.d(TAG, "Mapa centrado en Barcelona: ${barcelona.latitude}, ${barcelona.longitude}")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error al centrar mapa: ${e.message}")
+        }
     }
 
     // Manejo de permisos de ubicación

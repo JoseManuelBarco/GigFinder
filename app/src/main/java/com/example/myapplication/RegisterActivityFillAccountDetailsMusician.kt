@@ -52,7 +52,7 @@ class RegisterActivityFillAccountDetailsMusician : AppCompatActivity() {
             // Obtener la ID del idioma musical seleccionada (la posición en el Spinner)
             val langId = musicalLanguageSpinner.selectedItemPosition
 
-            val hourlyFee = hourlyFeeText.toDoubleOrNull()
+            val hourlyFee = hourlyFeeText.toIntOrNull()
             val membersNumber = membersNumberText.toIntOrNull()
 
             // Mostrar la información seleccionada en Logcat

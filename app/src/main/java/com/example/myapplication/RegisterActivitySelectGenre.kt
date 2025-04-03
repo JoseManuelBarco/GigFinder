@@ -8,225 +8,186 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.json.JSONArray
-import org.json.JSONObject
+import com.example.myapplication.objects.Local
+import com.example.myapplication.objects.Musician
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Response
 
 class RegisterActivitySelectGenre : AppCompatActivity() {
 
     private val generosSeleccionados = mutableListOf<String>()
     private lateinit var textViewResumen: TextView
 
+    private lateinit var email: String
+    private lateinit var password: String
+    private lateinit var role: String
 
+    // Mapa de géneros a sus correspondientes IDs
+    private val genreMap = mapOf(
+        "Rock" to 1,
+        "Electrónica" to 2,
+        "Jazz" to 3,
+        "Pop" to 4,
+        "Hip-hop" to 5,
+        "Clásica" to 6,
+        "Reggaetón" to 7,
+        "Soundtracks" to 8,
+        "Flauta" to 9,
+        "Otros" to 10
+                                )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_activity_select_genre)
 
-
-
-        val role = intent.getStringExtra("role")
-        val email = intent.getStringExtra("email")
-        val password = intent.getStringExtra("password")
-        Log.d("RegisterActivity6", "Role: $role")
-
-
-
-
-        if (role.equals("Musician")) {
-
-            val artisticName = intent.getStringExtra("artisticName")
-
-            val membersNumber = intent.getIntExtra("membersNumber", 0)
-
-            val hourlyFee = intent.getDoubleExtra("hourlyFee", 0.0)
-
-            val langId = intent.getIntExtra("langId", -1) // -1 es el valor por defecto en caso de que no se pase el dato
-
-
-            Log.d("RegisterActivity6", "Nombre artistico: $artisticName")
-            Log.d("RegisterActivity6", "Numero integrantes: $membersNumber")
-            Log.d("RegisterActivity6", "Tarifa horaria: $hourlyFee")
-            Log.d("RegisterActivityMap", "Idioma musical: $langId")
-
-
-
-        } else if (role.equals("Local")){
-
-            val localName = intent.getStringExtra("nombreLocal")
-            val maximumCapacity = intent.getIntExtra("maximumCapacity", 0)
-            val latitude = intent.getDoubleExtra("EXTRA_LATITUDE", 0.0)
-            val longitude = intent.getDoubleExtra("EXTRA_LONGITUDE", 0.0)
-
-            Log.d("RegisterActivity6", "Nombre del local: $localName")
-            Log.d("RegisterActivity6", "Aforo máximo: $maximumCapacity")
-            Log.d("RegisterActivity6", "Latitud del marcador: $latitude")
-            Log.d("RegisterActivity6", "Longitud del marcador: $longitude")
-            Log.d("RegisterActivity6", "Email: $email")
-            Log.d("RegisterActivity6", "Password: $password")
-
-        }
-
+        // Inicialización de vistas
         textViewResumen = findViewById(R.id.textViewtitle)
 
+        // Obtención de datos básicos
+        email = intent.getStringExtra("email").toString()
+        password = intent.getStringExtra("password").toString()
+        role = intent.getStringExtra("role").toString()
+
+        // Configuración común
         configurarSeleccionGenero()
-
-        findViewById<View>(R.id.buttonConfirm).setOnClickListener {
-
-            confirmarSeleccion()
-
-            //crear objeto de usuario
-
-            var intent = Intent(this, MusicianOpportunitiesActivity::class.java)
-
-            startActivity(intent)
-
-
-
-        }
-        findViewById<View>(R.id.buttonSelectLater).setOnClickListener {
-
-
-            saltarSeleccion()
-
-
-        }
+        setupButtonListeners()
     }
 
     private fun configurarSeleccionGenero() {
-        val ids = listOf(
-            R.id.rock, R.id.electronica, R.id.jazz, R.id.pop,
-            R.id.hiphop, R.id.clasica, R.id.latina_reggaeton, R.id.soundtracks,
-            R.id.flauta, R.id.otros
-                        )
+        val genreViews = listOf(
+            R.id.rock to "Rock",
+            R.id.electronica to "Electrónica",
+            R.id.jazz to "Jazz",
+            R.id.pop to "Pop",
+            R.id.hiphop to "Hip-hop",
+            R.id.clasica to "Clásica",
+            R.id.latina_reggaeton to "Reggaetón",
+            R.id.soundtracks to "Soundtracks",
+            R.id.flauta to "Flauta",
+            R.id.otros to "Otros"
+                               )
 
-        for (id in ids) {
+        genreViews.forEach { (id, genreName) ->
             val frame = findViewById<FrameLayout>(id)
-            frame.setOnClickListener {
-                val genero = (frame.getChildAt(1) as TextView).text.toString()
-                if (generosSeleccionados.contains(genero)) {
-                    generosSeleccionados.remove(genero)
-                    frame.alpha = 1.0f
-                } else {
-                    generosSeleccionados.add(genero)
-                    frame.alpha = 0.5f
+            val textView = (0 until frame.childCount)
+                .map { frame.getChildAt(it) }
+                .firstOrNull { it is TextView } as? TextView
+
+            textView?.let {
+                frame.setOnClickListener {
+                    toggleGenreSelection(genreName, frame)
                 }
-            }
+            } ?: Log.e("RegisterActivity", "No se encontró TextView en el FrameLayout $id")
         }
     }
 
+    private fun toggleGenreSelection(genreName: String, view: View) {
+        if (generosSeleccionados.contains(genreName)) {
+            generosSeleccionados.remove(genreName)
+            view.alpha = 1.0f
+        } else {
+            generosSeleccionados.add(genreName)
+            view.alpha = 0.5f
+        }
+    }
 
+    private fun setupButtonListeners() {
+        findViewById<View>(R.id.buttonConfirm).setOnClickListener {
+            if (validateSelection()) {
+                // Crear al músico o local con los géneros musicales seleccionados
+                processRegistration()
+            }
+        }
 
-    private fun confirmarSeleccion() {
+        findViewById<View>(R.id.buttonSelectLater).setOnClickListener {
+            // Registrar al músico o local sin géneros musicales seleccionados
+            processRegistration(skipGenres = true)
+        }
+    }
+
+    private fun validateSelection(): Boolean {
+        // Verificar que se haya seleccionado al menos un género
         if (generosSeleccionados.isEmpty()) {
             Toast.makeText(this, "Selecciona al menos un género", Toast.LENGTH_SHORT).show()
-            return
-        } else {
-            val role = intent.getStringExtra("role")
-            val email = intent.getStringExtra("email")
-            val password = intent.getStringExtra("password")
+            return false
+        }
+        return true
+    }
 
-            val jsonData = if (role == "Musician") {
-                // JSON para el músico
-                val artisticName = intent.getStringExtra("artisticName")
+    private fun processRegistration(skipGenres: Boolean = false) {
+        // Creamos los datos según el rol
+        val selectedGenres = if (!skipGenres) generosSeleccionados.map { genreMap[it] ?: 0 } else emptyList()
+
+        val userData = when (role) {
+            "Musician" -> {
+                val artisticName = intent.getStringExtra("artisticName").toString()
                 val membersNumber = intent.getIntExtra("membersNumber", 0)
-                val hourlyFee = intent.getDoubleExtra("hourlyFee", 0.0)
-                val langId = intent.getIntExtra("langId", -1)
+                val hourlyFee = intent.getIntExtra("hourlyFee", 0) // Cambiado a int
+                val langId = 1 // Esto debe ser el ID del lenguaje, puedes modificarlo si es necesario
 
-                val genres = generosSeleccionados.map { genero ->
-                    // Aquí asumes que tienes un mapeo de géneros a IDs.
-                    when (genero) {
-                        "Rock" -> 1
-                        "Electrónica" -> 2
-                        "Jazz" -> 3
-                        "Pop" -> 4
-                        "Hip-hop" -> 5
-                        "Clásica" -> 6
-                        "Reggaetón" -> 7
-                        "Soundtracks" -> 8
-                        "Flauta" -> 9
-                        "Otros" -> 10
-                        else -> 0
-                    }
-                }
-
-                val musicianJson = JSONObject()
-                musicianJson.put("email", email)
-                musicianJson.put("name", artisticName)
-                musicianJson.put("description", JSONObject.NULL) // O la descripción que se proporcione
-                musicianJson.put("password", password)
-                musicianJson.put("size", membersNumber)
-                musicianJson.put("price", hourlyFee)
-                musicianJson.put("langId", langId)
-                musicianJson.put("genres", JSONArray(genres))
-
-                musicianJson.toString()
-
-            } else {
-                // JSON para el local
-                val nombreLocal = intent.getStringExtra("nombreLocal")
-                val aforoMaximo = intent.getIntExtra("aforoMaximo", 0)
+                Musician(
+                    idUser = 0, // Puede ser asignado por la base de datos
+                    name = artisticName,
+                    description = "Descripcion del músico",
+                    email = email,
+                    password = password,
+                    rol = "Musician",  // O el rol que se necesita
+                    avg_rating = 0,  // Default o asignar si es necesario
+                    image_identifier = "", // Default o asignar si es necesario
+                    size = membersNumber,
+                    price = hourlyFee,
+                    genres = selectedGenres,  // Lista de géneros seleccionados
+                    langId = langId // Añadido langId
+                        )
+            }
+            "Local" -> {
+                val localName = intent.getStringExtra("localName").toString()
+                val maximumCapacity = intent.getIntExtra("maximumCapacity", 0)
                 val latitude = intent.getDoubleExtra("EXTRA_LATITUDE", 0.0)
                 val longitude = intent.getDoubleExtra("EXTRA_LONGITUDE", 0.0)
 
-                val localJson = JSONObject()
-                localJson.put("email", email)
-                localJson.put("name", nombreLocal)
-                localJson.put("description", JSONObject.NULL) // O la descripción que se proporcione
-                localJson.put("password", password)
-                localJson.put("capacity", aforoMaximo)
-                localJson.put("x_coordination", latitude)
-                localJson.put("y_coordination", longitude)
-
-                localJson.toString()
+                Local(
+                    idUser = null,  // Puede ser asignado por la base de datos
+                    name = localName,
+                    description = "Descripcion del local",
+                    email = email,
+                    password = password,
+                    rol = "Local", // O el rol que se necesita
+                    avg_rating = 0,  // Default o asignar si es necesario
+                    image_identifier = "",  // Default o asignar si es necesario
+                    capacity = maximumCapacity,
+                    x_coord = latitude,
+                    y_coord = longitude
+                     )
             }
-
-            Log.d("JSON Data", jsonData)
-            // Aquí enviarías el jsonData a un servidor o lo guardarías como necesites.
-            // Ejemplo: enviar a un servidor, o guardar en preferencias compartidas.
-        }
-    }
-    private fun saltarSeleccion() {
-        val role = intent.getStringExtra("role")
-        val email = intent.getStringExtra("email")
-        val password = intent.getStringExtra("password")
-
-        val jsonData = if (role == "Musician") {
-            // JSON para el músico con géneros como null
-            val artisticName = intent.getStringExtra("artisticName")
-            val membersNumber = intent.getIntExtra("membersNumber", 0)
-            val hourlyFee = intent.getDoubleExtra("hourlyFee", 0.0)
-            val langId = intent.getIntExtra("langId", -1)
-
-            val musicianJson = JSONObject()
-            musicianJson.put("email", email)
-            musicianJson.put("name", artisticName)
-            musicianJson.put("description", JSONObject.NULL)
-            musicianJson.put("password", password)
-            musicianJson.put("size", membersNumber)
-            musicianJson.put("price", hourlyFee)
-            musicianJson.put("langId", langId)
-            musicianJson.put("genres", JSONObject.NULL) // Géneros omitidos
-
-            musicianJson.toString()
-
-        } else {
-            // JSON para el local
-            val nombreLocal = intent.getStringExtra("nombreLocal")
-            val aforoMaximo = intent.getIntExtra("aforoMaximo", 0)
-            val latitude = intent.getDoubleExtra("EXTRA_LATITUDE", 0.0)
-            val longitude = intent.getDoubleExtra("EXTRA_LONGITUDE", 0.0)
-
-            val localJson = JSONObject()
-            localJson.put("email", email)
-            localJson.put("name", nombreLocal)
-            localJson.put("description", JSONObject.NULL)
-            localJson.put("password", password)
-            localJson.put("capacity", aforoMaximo)
-            localJson.put("x_coordination", latitude)
-            localJson.put("y_coordination", longitude)
-
-            localJson.toString()
+            else -> null
         }
 
+        // Enviar los datos a la API
+        if (userData != null) {
+            CoroutineScope(Dispatchers.Main).launch {
+                val response = when (role) {
+                    "Musician" -> {
+                        ApiClient.eventService.registerMusician(userData as Musician)
+                    }
+                    "Local" -> {
+                        ApiClient.eventService.registerLocal(userData as Local)
+                    }
+                    else -> null
+                }
+
+                if (response?.isSuccessful == true) {
+                    Toast.makeText(this@RegisterActivitySelectGenre, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                    // Redirigir al siguiente paso o actividad
+                } else {
+                    val errorBody = response?.errorBody()?.string()
+                    Log.e("RegisterActivity", "Error en el registro: $errorBody")
+                    Toast.makeText(this@RegisterActivitySelectGenre, "Error en el registro", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 }

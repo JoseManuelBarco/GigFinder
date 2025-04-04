@@ -17,10 +17,8 @@
     <string name="confirm">Confirmar</string>
     <string name="type_a_message">Escribe un mensage...</string>
     <string-array name="musical_languages">
-        <item>Español</item>
         <item>Inglés</item>
+        <item>Español</item>
         <item>Francés</item>
-        <item>Alemán</item>
-        <item>Ruso</item>
     </string-array>
 </resources>

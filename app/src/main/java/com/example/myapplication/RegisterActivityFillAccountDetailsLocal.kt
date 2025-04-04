@@ -81,19 +81,15 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
 
 
 
-                val local = Local(
-                    idUser = null, // Puedes asignar un valor predeterminado o hacerlo dinámico
+                /*val local = Local(
                     name = localName,
                     description = "No description", // Puedes pasar un valor predeterminado o editar este campo
                     email = email.toString(),
                     password = password.toString(),
-                    rol = role.toString(),
-                    avg_rating = 0, // Puedes poner un valor predeterminado, o recibir este dato si es necesario
-                    image_identifier = "default_image", // Valor predeterminado
                     capacity = maximumCapacity ?: 0, // Asegúrate de que este valor sea correcto
                     x_coord = xcoord, // Latitud del marcador
                     y_coord = ycoord // Longitud del marcador
-                                 )
+                                 )*/
 
                 Log.d("RegisterActivityLocalMap", "Latitud del marcador: $latitude")
                 Log.d("RegisterActivityLocalMap", "Longitud del marcador: $longitude")

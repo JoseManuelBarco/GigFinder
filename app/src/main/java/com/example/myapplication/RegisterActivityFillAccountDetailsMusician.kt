@@ -26,10 +26,16 @@ class RegisterActivityFillAccountDetailsMusician : AppCompatActivity() {
         val musicalLanguageSpinner = findViewById<Spinner>(R.id.musicalLanguageSpinner)
 
         // Obtener el array de valores de "musical_languages" definido en strings.xml
-        val musicalLanguages = resources.getStringArray(R.array.musical_languages)
+        val musicalLanguages = listOf(
+            "Inglés" to 1,
+            "Español" to 2,
+            "Francés" to 3
+                                     )
+
+        val languageNames = musicalLanguages.map { it.first }
 
         // Crear un ArrayAdapter con el array de valores
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, musicalLanguages)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, languageNames)
 
         // Definir el layout para la vista desplegable del Spinner
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -47,10 +53,13 @@ class RegisterActivityFillAccountDetailsMusician : AppCompatActivity() {
             val artisticName = artisticNameEditText.text.toString()
             val hourlyFeeText = hourlyFeeEditText.text.toString()
             val membersNumberText = membersNumberEditText.text.toString()
-            val musicalLanguage = musicalLanguageSpinner.selectedItem.toString()
+
+            val selectedLanguageName = musicalLanguageSpinner.selectedItem.toString()
 
             // Obtener la ID del idioma musical seleccionada (la posición en el Spinner)
-            val langId = musicalLanguageSpinner.selectedItemPosition
+            val langId = musicalLanguages.find { it.first == selectedLanguageName }?.second ?: 0
+
+
 
             val hourlyFee = hourlyFeeText.toIntOrNull()
             val membersNumber = membersNumberText.toIntOrNull()
@@ -59,7 +68,7 @@ class RegisterActivityFillAccountDetailsMusician : AppCompatActivity() {
             Log.d("RegisterActivityMap", "Nombre artistico: $artisticName")
             Log.d("RegisterActivityMap", "Numero integrantes: $membersNumber")
             Log.d("RegisterActivityMap", "Tarifa horaria: $hourlyFee")
-            Log.d("RegisterActivityMap", "Idioma musical: $musicalLanguage")
+            Log.d("RegisterActivityMap", "Idioma musical: $selectedLanguageName")
             Log.d("RegisterActivityMap", "ID del idioma musical seleccionado: $langId")
 
             // Crear el Intent para la siguiente actividad
@@ -70,7 +79,7 @@ class RegisterActivityFillAccountDetailsMusician : AppCompatActivity() {
             nextIntent.putExtra("artisticName", artisticName)
             nextIntent.putExtra("membersNumber", membersNumber)
             nextIntent.putExtra("hourlyFee", hourlyFee)
-            nextIntent.putExtra("musicalLanguage", musicalLanguage)
+            //nextIntent.putExtra("musicalLanguage", selectedLanguageName)
             nextIntent.putExtra("langId", langId) // Pasar el ID del idioma musical seleccionado
 
             // Iniciar la siguiente actividad

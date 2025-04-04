@@ -1,25 +1,14 @@
+// User.kt
 package com.example.myapplication.objects
 
-open class User(
-     private val idUser: Int? = null,  // idUser es nullable para ser asignado por la base de datos
-     private val name: String,
-     private val description: String = "No description", // Valor predeterminado
-     private val email: String,
-     private val password: String,
-     private val rol: String = "User", // Valor predeterminado
-     private val avg_rating: Int = 0, // Valor predeterminado
-     private val image_identifier: String = "default_image" // Valor predeterminado
-                ) {
-
-    fun getEmail() : String{
-        return email
-    }
-
-    fun getPassword(): String {
-        return password
-    }
-
-}
-
-
-
+data class User(
+    val id: Int,
+    val name: String,
+    val description: String?,
+    val type: String?,
+    val avg_rating: Float?,
+    val profile_image_identifier: String?//,
+    //val genres: List<Genre>?,
+   // val attachments: List<Any>,
+   // val events: List<Any>
+               )

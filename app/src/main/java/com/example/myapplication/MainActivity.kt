@@ -1,37 +1,29 @@
+// MainActivity.kt
 package com.example.myapplication
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.chats.ChatActivity
-import com.example.myapplication.chats.ChatListActivity
-import com.example.myapplication.chats.ChatService
-import com.example.myapplication.chats.SocketManager
+import androidx.lifecycle.lifecycleScope
+import com.example.myapplication.objects.LoginRequest
+import com.example.myapplication.objects.AuthResponse
+import com.example.myapplication.objects.LoginResponse
 import com.example.myapplication.objects.User
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.mindrot.jbcrypt.BCrypt
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    @RequiresApi(Build.VERSION_CODES.O)
+
+    private val TAG = "MainActivity" // Etiqueta para los logs
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
-
-        ChatService.init()
-//        val activityChat = Intent(this, ChatActivity::class.java)
-//        activityChat.putExtra("chat_id", 1015)
-//        startActivity(activityChat)
-//        val activityChatList = Intent(this, ChatListActivity::class.java)
-//        startActivity(activityChatList)
 
         val signupButton: ImageView = findViewById(R.id.loginButton)
         val loginTextView: TextView = findViewById(R.id.registerTextView)
@@ -55,39 +47,75 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun authenticateUser(email: String, password: String) {
-        CoroutineScope(Dispatchers.Main).launch {
-            val loginData = mapOf("email" to email, "password" to password)
+        val loginRequest = LoginRequest(email, password)
 
+        lifecycleScope.launch {
             try {
-                // Llamar a la API para autenticar al usuario
-                val response: Response<Map<String, Any>> = ApiClient.eventService.login(loginData)
+                Log.d(TAG, "Realizando solicitud de login con email: $email")
+
+                val response: Response<String> = ApiClient.eventService.login(loginRequest)
 
                 if (response.isSuccessful) {
-                    val responseBody = response.body()
+                    val authResponse = response.body()
 
-                    // Aquí puedes obtener los detalles del usuario de la respuesta
-                    val userRole = responseBody?.get("role") as? String
-                    val userEmail = responseBody?.get("email") as? String
-                    val userName = responseBody?.get("name") as? String
+                    if (authResponse != null) {
+                        Log.d(TAG, "Login exitoso. Respuesta del servidor: $authResponse")
 
-                    if (userRole == "Musician") {
-                        // Si es un músico, ir a MusicianOpportunitiesActivity
-                        val intent = Intent(this@MainActivity, MusicianOpportunitiesActivity::class.java)
-                        intent.putExtra("email", userEmail)
-                        intent.putExtra("name", userName)
-                        startActivity(intent)
-                    } else if (userRole == "Local") {
-                        // Si es un local, no hacer nada o mostrar mensaje de error
-                        Toast.makeText(this@MainActivity, "Es un Local, no un Músico", Toast.LENGTH_SHORT).show()
+                        // Llamamos directamente a getUserProfile usando el token recibido
+                        getUserProfile(authResponse)
+
+                    } else {
+                        Log.e(TAG, "Error: No se recibió respuesta válida del servidor")
+                        Toast.makeText(this@MainActivity, "Error al obtener la respuesta del servidor", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    // Si la autenticación falla, mostrar mensaje de error
-                    Toast.makeText(this@MainActivity, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+                    Log.e(TAG, "Error de autenticación: ${response.code()} - ${response.message()}")
+                    Toast.makeText(this@MainActivity, "Error de autenticación", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
-                Toast.makeText(this@MainActivity, "Error en la conexión", Toast.LENGTH_SHORT).show()
+                Log.e(TAG, "Error al conectar con el servidor: ${e.message}", e)
+                Toast.makeText(this@MainActivity, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
+    private suspend fun getUserProfile(token: String) {
+        try {
+            val authHeader = "Bearer $token"
+            val response: Response<User> = ApiClient.eventService.getUserProfile(authHeader)
+
+            if (response.isSuccessful) {
+                val userProfile = response.body()
+
+                if (userProfile != null) {
+                    Log.d(TAG, "Perfil del usuario recibido: $userProfile")
+
+                    if (userProfile.type == "music") {
+
+                        val intent = Intent(this, MusicianOpportunitiesActivity::class.java)
+                        startActivity(intent)
+
+                    } else if (userProfile.type == "local") {
+
+                        val intent = Intent(this, LocalOffersActivity::class.java)
+                        startActivity(intent)
+
+                    }
+
+                } else {
+                    Log.e(TAG, "No se recibió información de usuario válida")
+                    Toast.makeText(this@MainActivity, "Error al obtener datos de usuario", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Log.e(TAG, "Error en la respuesta: ${response.code()} - ${response.message()}")
+                Toast.makeText(this@MainActivity, "Error al obtener el perfil", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Excepción al conectar con el servidor: ${e.message}", e)
+            Toast.makeText(this@MainActivity, "Error de red", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
 }

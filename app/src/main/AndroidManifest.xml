@@ -37,6 +37,9 @@
             android:name=".RegisterActivityAccountType"
             android:exported="true"></activity>
         <activity
+            android:name=".LocalOffersActivity"
+            android:exported="true"></activity>
+        <activity
             android:name=".MusicianOpportunitiesActivity"
             android:exported="true"></activity>
         <activity

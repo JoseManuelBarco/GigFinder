@@ -33,8 +33,6 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
 
     companion object {
         private const val REQUEST_LOCATION_PERMISSION = 1
-        //const val EXTRA_LATITUDE = "EXTRA_LATITUDE"
-       //const val EXTRA_LONGITUDE = "EXTRA_LONGITUDE"
     }
 
     private val TAG = "MusicianOpportunities"
@@ -80,8 +78,8 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
                 Log.d("RegisterActivityLocalMap", "Longitud del marcador: $longitude")
 
 
-                var x_coordination = latitude;
-                var y_coordination = longitude;
+                var x_coordination = longitude;
+                var y_coordination = latitude;
 
                 val local = Local(
                     email = email,

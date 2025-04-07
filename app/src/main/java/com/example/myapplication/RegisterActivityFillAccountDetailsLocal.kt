@@ -17,8 +17,15 @@ import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.MapEventsOverlay
 import org.osmdroid.events.MapEventsReceiver
 import android.widget.ImageView
+import android.widget.Toast
 import com.example.myapplication.objects.Local
 import com.example.myapplication.objects.User
+import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
     private lateinit var osmMapView: MapView
@@ -37,6 +44,7 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
         setContentView(R.layout.register_activity_fill_account_details_local)
 
 
+
         Configuration.getInstance().userAgentValue = packageName
         osmMapView = findViewById(R.id.osmMapView)
         osmMapView.setMultiTouchControls(true)
@@ -49,9 +57,9 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
 
         var ycoord = 0.0
 
-        val role = intent.getStringExtra("rol")
-        val email = intent.getStringExtra("email")
-        val password = intent.getStringExtra("password")
+        val role = intent.getStringExtra("role")
+        val email = intent.getStringExtra("email").toString()
+        val password = intent.getStringExtra("password").toString()
 
         val localNameEditText = findViewById<EditText>(R.id.localNameEditText)
         val maximumCapacityEditText = findViewById<EditText>(R.id.maximumCapacityEditText)
@@ -63,49 +71,66 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
 
         // Al hacer click en el botón, recolectar la información y pasarla a la siguiente actividad
         findViewById<ImageView>(R.id.confirmButton).setOnClickListener {
-            val localName = localNameEditText.text.toString()
             val maximumCapacityText = maximumCapacityEditText.text.toString()
+            val capacity = maximumCapacityText.toInt()
+            val name = localNameEditText.text.toString()
 
-            val maximumCapacity = maximumCapacityText.toIntOrNull()
-
-            Log.d("RegisterActivityMap", "Nombre del local: $localName")
-            Log.d("RegisterActivityMap", "Aforo máximo: $localName")
 
             singleMarker?.let {
                 val latitude = it.position.latitude
                 val longitude = it.position.longitude
-
-                xcoord = latitude;
-                ycoord = longitude;
-
-
-
-
-                /*val local = Local(
-                    name = localName,
-                    description = "No description", // Puedes pasar un valor predeterminado o editar este campo
-                    email = email.toString(),
-                    password = password.toString(),
-                    capacity = maximumCapacity ?: 0, // Asegúrate de que este valor sea correcto
-                    x_coord = xcoord, // Latitud del marcador
-                    y_coord = ycoord // Longitud del marcador
-                                 )*/
-
                 Log.d("RegisterActivityLocalMap", "Latitud del marcador: $latitude")
                 Log.d("RegisterActivityLocalMap", "Longitud del marcador: $longitude")
 
-                // Crear un intent para pasar todos los datos a la siguiente actividad
-                val nextIntent = Intent(this, RegisterActivitySelectGenre::class.java)
-                nextIntent.putExtra("role", role) // Pasar el rol
-                nextIntent.putExtra("email", email) // Pasar el email
-                nextIntent.putExtra("password", password)
-                nextIntent.putExtra("EXTRA_LATITUDE", latitude)
-                nextIntent.putExtra("EXTRA_LONGITUDE", longitude)
-                nextIntent.putExtra("localName", localName)
-                nextIntent.putExtra("maximumCapacity", maximumCapacity)
 
-                startActivity(nextIntent)
-                finish()
+                var x_coordination = latitude;
+                var y_coordination = longitude;
+
+                val local = Local(
+                    email = email,
+                    name = name,
+                    description = "desc",  // Puedes capturar la descripción si lo deseas
+                    password = password,
+                    capacity = capacity,
+                    x_coordination = x_coordination,
+                    y_coordination = y_coordination
+                                 )
+
+                val gson = Gson()
+                val json = gson.toJson(local)
+
+
+                val requestBody = json.toRequestBody("application/json".toMediaType())
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val response = ApiClient.eventService.registerLocal(requestBody)
+                        if (response.isSuccessful) {
+                            runOnUiThread {
+                                Toast.makeText(this@RegisterActivityFillAccountDetailsLocal, "Local creado exitosamente", Toast.LENGTH_SHORT).show()
+
+                                val nextIntent = Intent(this@RegisterActivityFillAccountDetailsLocal, LocalOffersActivity::class.java)
+                                startActivity(nextIntent)
+                                finish()
+
+                            }
+                        } else {
+                            runOnUiThread {
+                                Toast.makeText(this@RegisterActivityFillAccountDetailsLocal, "Error al crear el local", Toast.LENGTH_SHORT).show()
+                            }
+                            Log.e("RegisterActivity", "Error al crear el local. Código: ${response.code()}, Cuerpo: ${response.errorBody()?.string()}")
+                        }
+                    } catch (e: Exception) {
+                        runOnUiThread {
+                            Toast.makeText(this@RegisterActivityFillAccountDetailsLocal, "Error en la conexión", Toast.LENGTH_SHORT).show()
+                        }
+                        Log.e("RegisterActivity", "Error al hacer la solicitud: ${e.message}")
+                    }
+                }
+
+
+                // Crear un intent para pasar todos los datos a la siguiente actividad
+
             } ?: run {
                 Log.d("RegisterActivityMap", "No se ha seleccionado un marcador.")
             }

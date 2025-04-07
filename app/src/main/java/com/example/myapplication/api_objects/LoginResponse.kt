@@ -1,7 +1,6 @@
-package com.example.myapplication.objects
+package com.example.myapplication.api_objects
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.serialization.Serializable
 
 data class LoginResponse(
     @SerializedName("access_token")

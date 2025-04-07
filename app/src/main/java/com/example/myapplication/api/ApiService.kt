@@ -1,10 +1,7 @@
 // ApiService.kt
 package com.example.myapplication
 
-import com.example.myapplication.objects.AuthResponse
-import com.example.myapplication.objects.Local
-import com.example.myapplication.objects.LoginRequest
-import com.example.myapplication.objects.Musician
+import com.example.myapplication.api_objects.LoginRequest
 import com.example.myapplication.objects.User
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -14,8 +11,6 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
-import retrofit2.http.Path
-
 
 
 interface EventApiService {
@@ -30,6 +25,12 @@ interface EventApiService {
     suspend fun getUserProfile(
         @Header("Authorization") token: String // Cambié el encabezado a "Authorization"
                               ): Response<User>
+
+    @POST("api/auth/signup/musician")
+    suspend fun registerMusician(@Body musicianData: RequestBody): Response<Unit>
+
+    @POST("api/auth/signup/local")
+    suspend fun registerLocal(@Body localData: RequestBody): Response<Unit>
 
 }
 

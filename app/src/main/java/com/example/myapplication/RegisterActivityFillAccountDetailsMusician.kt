@@ -25,7 +25,6 @@ class RegisterActivityFillAccountDetailsMusician : AppCompatActivity() {
 
         val musicalLanguageSpinner = findViewById<Spinner>(R.id.musicalLanguageSpinner)
 
-        // Obtener el array de valores de "musical_languages" definido en strings.xml
         val musicalLanguages = listOf(
             "Inglés" to 1,
             "Español" to 2,
@@ -34,21 +33,16 @@ class RegisterActivityFillAccountDetailsMusician : AppCompatActivity() {
 
         val languageNames = musicalLanguages.map { it.first }
 
-        // Crear un ArrayAdapter con el array de valores
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, languageNames)
 
-        // Definir el layout para la vista desplegable del Spinner
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        // Asignar el adapter al Spinner
         musicalLanguageSpinner.adapter = adapter
 
-        // Mostrar datos en Logcat para depuración
         Log.d("RegisterActivityMap", "Rol: $role")
         Log.d("RegisterActivityMap", "Email: $email")
         Log.d("RegisterActivityMap", "Contraseña: $password")
 
-        // Al hacer click en el botón, recolectar la información y pasarla a la siguiente actividad
         findViewById<TextView>(R.id.confirmButton).setOnClickListener {
             val artisticName = artisticNameEditText.text.toString()
             val hourlyFeeText = hourlyFeeEditText.text.toString()
@@ -64,23 +58,20 @@ class RegisterActivityFillAccountDetailsMusician : AppCompatActivity() {
             val hourlyFee = hourlyFeeText.toIntOrNull()
             val membersNumber = membersNumberText.toIntOrNull()
 
-            // Mostrar la información seleccionada en Logcat
             Log.d("RegisterActivityMap", "Nombre artistico: $artisticName")
             Log.d("RegisterActivityMap", "Numero integrantes: $membersNumber")
             Log.d("RegisterActivityMap", "Tarifa horaria: $hourlyFee")
             Log.d("RegisterActivityMap", "Idioma musical: $selectedLanguageName")
             Log.d("RegisterActivityMap", "ID del idioma musical seleccionado: $langId")
 
-            // Crear el Intent para la siguiente actividad
             val nextIntent = Intent(this, RegisterActivitySelectGenre::class.java)
-            nextIntent.putExtra("role", role) // Pasar el rol
-            nextIntent.putExtra("email", email) // Pasar el email
+            nextIntent.putExtra("role", role)
+            nextIntent.putExtra("email", email)
             nextIntent.putExtra("password", password)
             nextIntent.putExtra("artisticName", artisticName)
             nextIntent.putExtra("membersNumber", membersNumber)
             nextIntent.putExtra("hourlyFee", hourlyFee)
-            //nextIntent.putExtra("musicalLanguage", selectedLanguageName)
-            nextIntent.putExtra("langId", langId) // Pasar el ID del idioma musical seleccionado
+            nextIntent.putExtra("langId", langId)
 
             // Iniciar la siguiente actividad
             startActivity(nextIntent)

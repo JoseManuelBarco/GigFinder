@@ -1,4 +1,4 @@
-package com.example.myapplication.objects
+package com.example.myapplication.api_objects
 
 data class AuthResponse(
     val token: String

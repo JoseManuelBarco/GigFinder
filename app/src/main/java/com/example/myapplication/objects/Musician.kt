@@ -1,12 +1,12 @@
 package com.example.myapplication.objects
 
-class Musician(
-    email: String,
-    name: String,
-    description: String,
-    password: String,
-    private val size: Int,
-    private val price: Int,
-    private val langId: Int,
+data class Musician(
+    val email: String,
+    val name: String,
+    val description: String,
+    val password: String,
+    val size: Int,
+    val price: Int,
+    val langId: Int,
     val genres: List<Int>
-              )
+                   )

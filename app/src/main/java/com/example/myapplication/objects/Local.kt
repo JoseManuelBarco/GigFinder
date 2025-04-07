@@ -1,12 +1,11 @@
 package com.example.myapplication.objects
-import kotlinx.serialization.Serializable
 
-@Serializable
-class Local(
-                email: String,
-                name: String,
-                description: String,
-                password: String,
-                private val capacity: Int,
-                private val x_coord: Double,
-                private val y_coord: Double )
+data class Local(
+    val email: String,
+    val name: String,
+    val description: String,
+    val password: String,
+    val capacity: Int,
+    val x_coordination: Double,
+    val y_coordination: Double
+                )

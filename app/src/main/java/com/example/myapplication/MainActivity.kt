@@ -10,9 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.myapplication.objects.LoginRequest
-import com.example.myapplication.objects.AuthResponse
-import com.example.myapplication.objects.LoginResponse
+import com.example.myapplication.api_objects.LoginRequest
 import com.example.myapplication.objects.User
 import kotlinx.coroutines.launch
 import retrofit2.Response

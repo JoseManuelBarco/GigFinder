@@ -34,7 +34,6 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.music_opportunities_map_actitity)
 
-
         osmMapView = findViewById(R.id.osmMapView)
         osmMapView.setMultiTouchControls(true)
 
@@ -45,7 +44,6 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
 
         testApiConnection()
         checkLocationPermission() // Verificar permisos de ubicación
-
 
 
     }

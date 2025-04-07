@@ -53,9 +53,6 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
 
         setupMapTouchOverlay() // Configurar la superposición de eventos en el mapa
 
-        var xcoord = 0.0
-
-        var ycoord = 0.0
 
         val role = intent.getStringExtra("role")
         val email = intent.getStringExtra("email").toString()
@@ -199,10 +196,10 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
             osmMapView.controller.setZoom(15.0)
 
             // Luego establece el centro
-            osmMapView.controller.animateTo(barcelona)
+            //osmMapView.controller.animateTo(barcelona)
 
             // Alternativa más directa:
-            // osmMapView.controller.setCenter(barcelona)
+             osmMapView.controller.setCenter(barcelona)
             // osmMapView.controller.setZoom(15.0)
 
             Log.d(TAG, "Mapa centrado en Barcelona: ${barcelona.latitude}, ${barcelona.longitude}")

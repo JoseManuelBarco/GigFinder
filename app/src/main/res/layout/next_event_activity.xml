@@ -89,9 +89,10 @@
         android:id="@+id/constraintLayout8"
         android:layout_width="400dp"
         android:layout_height="300dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
@@ -114,11 +115,11 @@
         android:id="@+id/descriptioneventTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="16dp"
         android:text="Descripcion: \n Sera un concierto muy emocionante, habran muchas personas esperando a local"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout8"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="-5dp" />
 
     <TextView
         android:id="@+id/textView7"

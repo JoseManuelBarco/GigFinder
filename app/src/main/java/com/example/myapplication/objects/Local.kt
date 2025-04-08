@@ -7,5 +7,6 @@ data class Local(
     val password: String,
     val capacity: Int,
     val x_coordination: Double,
-    val y_coordination: Double
+    val y_coordination: Double,
+
                 )

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.api_objects.LoginRequest
+import com.example.myapplication.api_objects.SessionManager
 import com.example.myapplication.objects.User
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -33,7 +34,6 @@ class MainActivity : AppCompatActivity() {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-            // Realizar la autenticación con la API
             authenticateUser(email, password)
         }
 
@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         val loginRequest = LoginRequest(email, password)
 
         lifecycleScope.launch {
+
             try {
                 Log.d(TAG, "Realizando solicitud de login con email: $email")
 
@@ -55,11 +56,10 @@ class MainActivity : AppCompatActivity() {
 
                 if (response.isSuccessful) {
                     val authResponse = response.body()
-
+                    SessionManager.token = authResponse
                     if (authResponse != null) {
                         Log.d(TAG, "Login exitoso. Respuesta del servidor: $authResponse")
 
-                        // Llamamos directamente a getUserProfile usando el token recibido
                         getUserProfile(authResponse)
 
                     } else {
@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    //PEDIRLE CAMBIO DE ENDPOINT
 
     private suspend fun getUserProfile(token: String) {
         try {

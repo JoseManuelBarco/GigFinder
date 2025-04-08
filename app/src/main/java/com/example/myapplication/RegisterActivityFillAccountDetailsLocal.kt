@@ -88,8 +88,7 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
                     password = password,
                     capacity = capacity,
                     x_coordination = x_coordination,
-                    y_coordination = y_coordination
-                                 )
+                    y_coordination = y_coordination,)
 
                 val gson = Gson()
                 val json = gson.toJson(local)

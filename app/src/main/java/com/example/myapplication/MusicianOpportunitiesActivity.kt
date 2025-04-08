@@ -43,7 +43,7 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
         centerMapOnBarcelona()
 
         testApiConnection()
-        checkLocationPermission() // Verificar permisos de ubicación
+        checkLocationPermission()
 
 
     }
@@ -56,18 +56,14 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     Log.d(TAG, "Respuesta recibida: ${response.size} eventos")
 
-                    // Imprime cada evento en el Logcat
-                    response.forEachIndexed { index, event ->
-                        Log.d(TAG, """
-                        |Evento #${index + 1}:
-                        |ID: ${event["id"]}
-                        |Descripción: ${event["description"]}
-                        |Fecha inicio: ${event["date_start"]}
-                        |Local ID: ${(event["Local"] as? Map<*, *>)?.get("id")}
-                        |X_coords: ${(event["Local"] as? Map<*, *>)?.get("x_coordination")}
-                        |Y_coords: ${(event["Local"] as? Map<*, *>)?.get("y_coordination")}
-                        |------------------------------
-                        """.trimMargin())
+                    response.forEach { event ->
+                        val lat = event.Local.y_coordination
+                        val lon = event.Local.x_coordination
+                        val name = event.Local.name
+
+                        addEventMarker(lat, lon, name)
+
+                        Log.d(TAG, "Evento: $name en ($lat, $lon)")
                     }
                 }
             } catch (e: Exception) {
@@ -79,12 +75,11 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
         }
     }
 
-    // Método para verificar los permisos de ubicación
     private fun checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
         } else {
-            setUserLocation() // Si ya tiene permisos, establecer la ubicación del usuario
+            setUserLocation()
         }
     }
 
@@ -125,5 +120,14 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
         } catch (e: Exception) {
             Log.e(TAG, "Error al centrar mapa: ${e.message}")
         }
+    }
+    private fun addEventMarker(latitude: Double, longitude: Double, description: String) {
+        val eventLocation = GeoPoint(latitude, longitude)
+        val marker = Marker(osmMapView)
+        marker.position = eventLocation
+        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+        marker.title = description
+        osmMapView.overlays.add(marker)
+        osmMapView.invalidate() // refresca el mapa
     }
 }

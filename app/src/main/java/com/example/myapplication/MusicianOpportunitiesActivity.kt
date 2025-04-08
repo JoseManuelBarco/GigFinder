@@ -26,13 +26,14 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
         //const val EXTRA_LATITUDE = "EXTRA_LATITUDE"
         //const val EXTRA_LONGITUDE = "EXTRA_LONGITUDE"
     }
-
     private val TAG = "MusicianOpportunities"
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.music_opportunities_map_actitity)
+
+        NavigationBarHelper.setIconSelected(this, R.id.opportunitiesIconImageView)
+
 
         osmMapView = findViewById(R.id.osmMapView)
         osmMapView.setMultiTouchControls(true)
@@ -41,14 +42,11 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
         Configuration.getInstance().load(this, getPreferences(MODE_PRIVATE))
 
         centerMapOnBarcelona()
-
-        testApiConnection()
-        checkLocationPermission() // Verificar permisos de ubicación
-
-
+        getEvents()
+        checkLocationPermission()
     }
 
-    private fun testApiConnection() {
+    private fun getEvents() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = ApiClient.eventService.getEvents()
@@ -56,19 +54,36 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     Log.d(TAG, "Respuesta recibida: ${response.size} eventos")
 
-                    // Imprime cada evento en el Logcat
                     response.forEachIndexed { index, event ->
+                        val local = event["Local"] as? Map<*, *>
+                        val lat = (local?.get("x_coordination") as? Number)?.toDouble()
+                        val lon = (local?.get("y_coordination") as? Number)?.toDouble()
+
+                        if (lat != null && lon != null) {
+                            val eventPoint = GeoPoint(lat, lon)
+                            val marker = Marker(osmMapView)
+                            marker.position = eventPoint
+                            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                            marker.title = event["description"]?.toString() ?: "Evento sin descripción"
+                            marker.snippet = "Fecha: ${event["date_start"]}"
+                            osmMapView.overlays.add(marker)
+                        }
+
+                        // Log opcional
                         Log.d(TAG, """
                         |Evento #${index + 1}:
                         |ID: ${event["id"]}
                         |Descripción: ${event["description"]}
                         |Fecha inicio: ${event["date_start"]}
-                        |Local ID: ${(event["Local"] as? Map<*, *>)?.get("id")}
-                        |X_coords: ${(event["Local"] as? Map<*, *>)?.get("x_coordination")}
-                        |Y_coords: ${(event["Local"] as? Map<*, *>)?.get("y_coordination")}
+                        |Local ID: ${local?.get("id")}
+                        |X_coords: $lat
+                        |Y_coords: $lon
                         |------------------------------
-                        """.trimMargin())
+                    """.trimMargin())
                     }
+
+                    // Redibujar el mapa para mostrar los marcadores
+                    osmMapView.invalidate()
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {

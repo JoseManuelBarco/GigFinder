@@ -7,7 +7,7 @@ class LocalOffersActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.local_offers_activity)
+        setContentView(R.layout.main_activity_local)
 
 
 

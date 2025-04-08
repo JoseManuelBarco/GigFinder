@@ -2,31 +2,38 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/navBarConstraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="70dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/nav_bar_background"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
+    android:paddingRight="40dp"
+    android:paddingLeft="40dp"
     >
 
     <LinearLayout
         android:id="@+id/searchContainer"
+        android:layout_marginTop="7dp"
         android:orientation="vertical"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="@+id/navBarConstraintLayout"
+        app:layout_constraintEnd_toStartOf="@+id/messagesContainer"
         app:layout_constraintTop_toTopOf="@+id/navBarConstraintLayout"
         >
 
     <ImageView
         android:id="@+id/searchIconImageView"
         android:src="@drawable/searchicon"
-        android:layout_width="30dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="4dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"/>
+        android:layout_marginRight="15dp"
+        android:background="@drawable/nav_icon_selector"
+        android:layout_marginBottom="2dp"/>
 
         <TextView
             android:id="@+id/searchIconLabel"
@@ -34,11 +41,12 @@
             android:layout_height="wrap_content"
             android:text="Buscar Locales"
             android:textAlignment="center"
-            android:textSize="11sp" />
+            android:textSize="9sp"/>
 
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="7dp"
         android:id="@+id/messagesContainer"
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -46,18 +54,19 @@
         android:gravity="center"
         app:layout_constraintStart_toEndOf="@id/searchContainer"
         app:layout_constraintEnd_toStartOf="@id/opportunitiesContainer"
-        app:layout_constraintTop_toTopOf="@+id/navBarConstraintLayout"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp">
+        app:layout_constraintTop_toTopOf="@+id/navBarConstraintLayout">
 
 
     <ImageView
         android:id="@+id/messagesIconImageView"
         android:src="@drawable/messagesicon"
-        android:layout_width="30dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="4dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"/>
+        android:layout_marginRight="15dp"
+        android:background="@drawable/nav_icon_selector"
+        android:layout_marginBottom="2dp"/>
 
     <TextView
         android:id="@+id/messagesIconLabel"
@@ -65,27 +74,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="12sp"/>
+        android:textSize="9sp"/>
 
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="7dp"
         android:id="@+id/opportunitiesContainer"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         app:layout_constraintEnd_toStartOf="@id/eventsContainer"
+        app:layout_constraintStart_toEndOf="@+id/messagesContainer"
         app:layout_constraintTop_toTopOf="@+id/navBarConstraintLayout"
-        android:layout_marginEnd="15dp">
+>
 
     <ImageView
         android:id="@+id/opportunitiesIconImageView"
         android:src="@drawable/opportunitiesicon"
-        android:layout_width="30dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="4dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"/>
+        android:layout_marginRight="15dp"
+        android:background="@drawable/nav_icon_selector"
+        android:layout_marginBottom="2dp"/>
 
     <TextView
         android:id="@+id/opportunitiesIconLabel"
@@ -93,54 +107,62 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="12sp"/>
+        android:textSize="9sp"/>
 
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="7dp"
         android:id="@+id/eventsContainer"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         app:layout_constraintEnd_toStartOf="@id/settingsContainer"
-        app:layout_constraintTop_toTopOf="@+id/navBarConstraintLayout"
-        android:layout_marginEnd="15dp">
+        app:layout_constraintTop_toTopOf="@+id/navBarConstraintLayout">
 
     <ImageView
         android:id="@+id/eventsIconImageView"
         android:src="@drawable/eventsicon"
-        android:layout_width="30dp"
-        android:layout_height="50dp"
-/>
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="4dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="2dp"
+        />
 
     <TextView
         android:id="@+id/eventsIconLabel"
-        android:text=" Mi \n Eventos"
+        android:text=" Mis Eventos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="12sp"/>
+        android:textSize="9sp"/>
 
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="7dp"
         android:id="@+id/settingsContainer"
         android:orientation="vertical"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        app:layout_constraintEnd_toEndOf="@id/navBarConstraintLayout"
+        app:layout_constraintStart_toEndOf="@+id/eventsContainer"
         app:layout_constraintTop_toTopOf="@+id/navBarConstraintLayout"
         >
 
     <ImageView
         android:id="@+id/settingsIconImageView"
         android:src="@drawable/settingsicon"
-        android:layout_width="30dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="4dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"/>
+        android:layout_marginRight="15dp"
+        android:background="@drawable/nav_icon_selector"
+        android:layout_marginBottom="2dp"/>
 
     <TextView
         android:id="@+id/settingsIconLabel"
@@ -148,12 +170,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="12sp" />
+        android:textSize="9sp" />
 
     </LinearLayout>
-
-
-
 
 
 

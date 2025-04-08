@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/opportunitiesTextView"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/settingsicon"
+        android:src="@drawable/accountpicture"
         android:layout_marginTop="4dp"
         android:layout_marginLeft="40dp"/>
 

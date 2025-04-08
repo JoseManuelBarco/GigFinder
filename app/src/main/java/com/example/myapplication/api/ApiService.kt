@@ -32,6 +32,8 @@ interface EventApiService {
     @POST("api/auth/signup/local")
     suspend fun registerLocal(@Body localData: RequestBody): Response<Unit>
 
+
+
 }
 
 object ApiClient {

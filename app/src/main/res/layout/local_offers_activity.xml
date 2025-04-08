@@ -9,15 +9,6 @@
         layout="@layout/top_bar"
         android:id="@+id/top_bar"/>
 
-    <TextView
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <include
         layout="@layout/navigation_bar"
         android:id="@+id/navBarConstraintLayout" />

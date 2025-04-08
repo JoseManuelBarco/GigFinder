@@ -1,8 +1,11 @@
 // ApiService.kt
 package com.example.myapplication
 
+import com.example.myapplication.api_objects.AuthInterceptor
 import com.example.myapplication.api_objects.LoginRequest
+import com.example.myapplication.objects.Event
 import com.example.myapplication.objects.User
+import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -14,8 +17,8 @@ import retrofit2.http.POST
 
 
 interface EventApiService {
-    @GET("api/Events")
-    suspend fun getEvents(): List<Map<String, Any>>
+   /* @GET("api/Events")
+    suspend fun getEvents(): List<Map<String, Any>>*/
 
     @POST("api/auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<String>
@@ -32,17 +35,22 @@ interface EventApiService {
     @POST("api/auth/signup/local")
     suspend fun registerLocal(@Body localData: RequestBody): Response<Unit>
 
-
+    @GET("api/Events")
+    suspend fun getEvents(): List<Event>
 
 }
 
 object ApiClient {
     private const val BASE_URL = "http://10.0.0.99/dam03/"
-    //añadir linea de token
+
+    private val client = OkHttpClient.Builder()
+        .addInterceptor(AuthInterceptor())
+        .build()
 
     val eventService: EventApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(EventApiService::class.java)

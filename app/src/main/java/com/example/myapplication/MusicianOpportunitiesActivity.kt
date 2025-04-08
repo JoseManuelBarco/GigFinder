@@ -26,7 +26,9 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
         //const val EXTRA_LATITUDE = "EXTRA_LATITUDE"
         //const val EXTRA_LONGITUDE = "EXTRA_LONGITUDE"
     }
+
     private val TAG = "MusicianOpportunities"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,11 +44,14 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
         Configuration.getInstance().load(this, getPreferences(MODE_PRIVATE))
 
         centerMapOnBarcelona()
-        getEvents()
+
+        testApiConnection()
         checkLocationPermission()
+
+
     }
 
-    private fun getEvents() {
+    private fun testApiConnection() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = ApiClient.eventService.getEvents()
@@ -54,7 +59,18 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     Log.d(TAG, "Respuesta recibida: ${response.size} eventos")
 
-                    response.forEachIndexed { index, event ->
+                    response.forEach { event ->
+                        val lat = event.Local.y_coordination
+                        val lon = event.Local.x_coordination
+                        val name = event.Local.name
+
+                        addEventMarker(lat, lon, name)
+
+                        Log.d(TAG, "Evento: $name en ($lat, $lon)")
+                    }
+                    
+                    
+                    /*                     response.forEachIndexed { index, event ->
                         val local = event["Local"] as? Map<*, *>
                         val lat = (local?.get("x_coordination") as? Number)?.toDouble()
                         val lon = (local?.get("y_coordination") as? Number)?.toDouble()
@@ -79,8 +95,7 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
                         |X_coords: $lat
                         |Y_coords: $lon
                         |------------------------------
-                    """.trimMargin())
-                    }
+                    """.trimMargin())*/
 
                     // Redibujar el mapa para mostrar los marcadores
                     osmMapView.invalidate()
@@ -99,7 +114,7 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
         } else {
-            setUserLocation() // Si ya tiene permisos, establecer la ubicación del usuario
+            setUserLocation()
         }
     }
 
@@ -140,5 +155,14 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
         } catch (e: Exception) {
             Log.e(TAG, "Error al centrar mapa: ${e.message}")
         }
+    }
+    private fun addEventMarker(latitude: Double, longitude: Double, description: String) {
+        val eventLocation = GeoPoint(latitude, longitude)
+        val marker = Marker(osmMapView)
+        marker.position = eventLocation
+        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+        marker.title = description
+        osmMapView.overlays.add(marker)
+        osmMapView.invalidate() // refresca el mapa
     }
 }

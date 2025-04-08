@@ -3,24 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <include
-        android:id="@+id/top_bar"
-        layout="@layout/top_bar" />
+        layout="@layout/top_bar"
+        android:id="@+id/top_bar"/>
+
+
 
 
     <org.osmdroid.views.MapView
         android:id="@+id/osmMapView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/top_bar"
         app:layout_constraintBottom_toTopOf="@+id/navBarConstraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_bar" />
+        android:background="@color/black"/>
 
 
     <TextView
@@ -37,17 +40,41 @@
         app:layout_constraintStart_toStartOf="@id/osmMapView"
         app:layout_constraintTop_toTopOf="@+id/osmMapView" />
 
+    <TextView
+        android:layout_width="105dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/small_button_opportunities"
+        android:backgroundTint="@color/white"
+        android:gravity="center"
+        android:text="Filtros"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/osmMapView"
+        app:layout_constraintTop_toTopOf="@+id/osmMapView" />
+
+
+    <!--  android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/small_button_opportunities"
+        android:backgroundTint="@color/white"
+        android:gravity="center"
+        android:text="Listado"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/osmMapView"
+        app:layout_constraintTop_toTopOf="@+id/osmMapView" />
+ -->
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/eventsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginHorizontal="5dp"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/osmMapView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/navBarConstraintLayout"
-        android:layout_marginBottom="40dp"
-        tools:layout_editor_absoluteY="569dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <include

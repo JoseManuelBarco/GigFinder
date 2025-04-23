@@ -5,14 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.api_objects.LoginRequest
 import com.example.myapplication.api_objects.SessionManager
+import com.example.myapplication.helpers.PreferencesHelper
+import com.example.myapplication.musician_activities.MusicianOpportunitiesActivity
 import com.example.myapplication.objects.User
+import com.jakewharton.threetenabp.AndroidThreeTen
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -22,9 +24,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AndroidThreeTen.init(this)
+
+        val prefs = PreferencesHelper(this)
+        prefs.clearAll()
+
         setContentView(R.layout.login_activity)
 
-        val signupButton: ImageView = findViewById(R.id.loginButton)
+        val signupButton: TextView = findViewById(R.id.loginButton)
         val loginTextView: TextView = findViewById(R.id.registerTextView)
 
         val emailEditText: EditText = findViewById(R.id.emailEditText)
@@ -59,7 +66,8 @@ class MainActivity : AppCompatActivity() {
                     SessionManager.token = authResponse
                     if (authResponse != null) {
                         Log.d(TAG, "Login exitoso. Respuesta del servidor: $authResponse")
-
+                        val prefs = PreferencesHelper(this@MainActivity)
+                        prefs.saveCredentials(email, password)
                         getUserProfile(authResponse)
 
                     } else {
@@ -92,11 +100,15 @@ class MainActivity : AppCompatActivity() {
                     if (userProfile.type == "music") {
 
                         val intent = Intent(this, MusicianOpportunitiesActivity::class.java)
+                        val prefs = PreferencesHelper(this)
+                        prefs.saveUserProfile(userProfile)
                         startActivity(intent)
 
                     } else if (userProfile.type == "local") {
 
                         val intent = Intent(this, LocalOffersActivity::class.java)
+                        val prefs = PreferencesHelper(this)
+                        prefs.saveUserProfile(userProfile)
                         startActivity(intent)
 
                     }

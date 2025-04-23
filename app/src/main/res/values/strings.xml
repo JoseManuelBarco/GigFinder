@@ -15,10 +15,22 @@
     <string name="local">Local</string>
     <string name="warningAccountType">¡Asegurate, una vez elegido no lo podrás cambiar!</string>
     <string name="confirm">Confirmar</string>
-    <string name="type_a_message">Escribe un mensage...</string>
+    <string name="type_a_message">Escribe un mensaje...</string>
     <string-array name="musical_languages">
         <item>Inglés</item>
         <item>Español</item>
         <item>Francés</item>
+    </string-array>
+    <string-array name="genres">
+        <item>Rock</item>
+        <item>Jazz</item>
+        <item>Clasica</item>
+        <item>Pop</item>
+        <item>HipHop</item>
+        <item>Latina/Reggaeton</item>
+        <item>Electronica</item>
+        <item>Soundtrack</item>
+        <item>Faluta</item>
+        <item>Otros</item>
     </string-array>
 </resources>

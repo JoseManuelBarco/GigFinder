@@ -1,14 +1,16 @@
-package com.example.myapplication
+package com.example.myapplication.musician_activities
 
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.myapplication.ApiClient
+import com.example.myapplication.R
+import com.example.myapplication.helpers.PreferencesHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,6 +29,8 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
         //const val EXTRA_LONGITUDE = "EXTRA_LONGITUDE"
     }
 
+
+
     private val TAG = "MusicianOpportunities"
 
 
@@ -35,6 +39,16 @@ class MusicianOpportunitiesActivity: AppCompatActivity() {
         setContentView(R.layout.music_opportunities_map_actitity)
 
         NavigationBarHelper.setIconSelected(this, R.id.opportunitiesIconImageView)
+
+        val prefs = PreferencesHelper(this)
+        val user = prefs.getUserProfile()
+
+        if (user != null) {
+            // Puedes usar user.name, user.type, etc.
+            Log.d("OtherActivity", "Nombre del usuario: ${user.name}")
+        } else {
+            Log.e("OtherActivity", "No se encontró perfil de usuario")
+        }
 
 
         osmMapView = findViewById(R.id.osmMapView)

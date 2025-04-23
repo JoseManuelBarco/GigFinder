@@ -41,7 +41,7 @@
             android:name=".LocalOffersActivity"
             android:exported="true"></activity>
         <activity
-            android:name=".MusicianOpportunitiesActivity"
+            android:name=".musician_activities.MusicianOpportunitiesActivity"
             android:exported="true"></activity>
         <activity
             android:name=".RegisterActivityPersonalData"

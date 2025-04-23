@@ -12,7 +12,7 @@
     <EditText
         android:id="@+id/confirmpasswordEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/edittext_background"
         android:hint="@string/confirmPassword"
@@ -26,7 +26,7 @@
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:background="@drawable/edittext_background"
         android:layout_marginTop="60dp"
         android:textSize="@dimen/hintLogin"
@@ -38,7 +38,7 @@
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/edittext_background"
         android:hint="@string/password"
@@ -60,13 +60,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <TextView
         android:id="@+id/continueButton"
         android:layout_width="@dimen/loginbuttonwidth"
         android:layout_height="@dimen/loginbuttonheight"
         android:layout_marginTop="132dp"
         android:background="@drawable/blue_rectangle"
         android:textColor="@color/white"
+        android:text="Crear Cuenta"
+        android:gravity="center"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

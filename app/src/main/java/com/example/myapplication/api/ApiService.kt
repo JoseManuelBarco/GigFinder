@@ -2,6 +2,8 @@
 package com.example.myapplication
 
 import com.example.myapplication.api_objects.AuthInterceptor
+import com.example.myapplication.api_objects.EventPostBody
+import com.example.myapplication.api_objects.EventResponse
 import com.example.myapplication.api_objects.LoginRequest
 import com.example.myapplication.objects.Event
 import com.example.myapplication.objects.User
@@ -17,17 +19,11 @@ import retrofit2.http.POST
 
 
 interface EventApiService {
-   /* @GET("api/Events")
-    suspend fun getEvents(): List<Map<String, Any>>*/
-
     @POST("api/auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<String>
 
-
     @GET("api/auth/whoami")
-    suspend fun getUserProfile(
-        @Header("Authorization") token: String // Cambié el encabezado a "Authorization"
-                              ): Response<User>
+    suspend fun getUserProfile(@Header("Authorization") token: String): Response<User>
 
     @POST("api/auth/signup/musician")
     suspend fun registerMusician(@Body musicianData: RequestBody): Response<Unit>
@@ -38,6 +34,11 @@ interface EventApiService {
     @GET("api/Events")
     suspend fun getEvents(): List<Event>
 
+    @POST("api/events/create")
+    suspend fun createEvent(@Body event: EventPostBody): Response<Unit>
+
+    @GET("api/events/my")
+    suspend fun getMyEvents(): Response<List<EventResponse>>
 }
 
 object ApiClient {

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.objects.User
@@ -19,7 +20,7 @@ class RegisterActivityPersonalData : AppCompatActivity() {
         val emailEditText = findViewById<EditText>(R.id.emailEditText)
         val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
         val confirmPasswordEditText = findViewById<EditText>(R.id.confirmpasswordEditText)
-        val continueButton = findViewById<ImageView>(R.id.continueButton)
+        val continueButton = findViewById<TextView>(R.id.continueButton)
         val role = intent.getStringExtra("role")
 
         Log.d("RegisterActivityPersonalData", "Role: $role")

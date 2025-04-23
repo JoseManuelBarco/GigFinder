@@ -125,7 +125,6 @@ class RegisterActivitySelectGenre : AppCompatActivity() {
         }
 
         if (role == "Musician") {
-            //post de musician
 
             var name = intent.getStringExtra("artisticName").toString()
             var size = intent.getIntExtra("membersNumber", 0)

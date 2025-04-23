@@ -47,6 +47,9 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
         osmMapView = findViewById(R.id.osmMapView)
         osmMapView.setMultiTouchControls(true)
 
+        centerMapOnBarcelona()
+
+
         checkLocationPermission() // Verificar permisos de ubicación
 
         setupMapTouchOverlay() // Configurar la superposición de eventos en el mapa
@@ -103,7 +106,7 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
                             runOnUiThread {
                                 Toast.makeText(this@RegisterActivityFillAccountDetailsLocal, "Local creado exitosamente", Toast.LENGTH_SHORT).show()
 
-                                val nextIntent = Intent(this@RegisterActivityFillAccountDetailsLocal, LocalOffersActivity::class.java)
+                                val nextIntent = Intent(this@RegisterActivityFillAccountDetailsLocal, MainActivity::class.java)
                                 startActivity(nextIntent)
                                 finish()
 
@@ -160,9 +163,13 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
     // Método para verificar los permisos de ubicación
     private fun checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Solicitar permisos si no los tenemos
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
+
+            // Centrar en Barcelona mientras esperamos la respuesta del usuario
+            centerMapOnBarcelona()
         } else {
-            setUserLocation() // Si ya tiene permisos, establecer la ubicación del usuario
+            setUserLocation()
         }
     }
 
@@ -187,31 +194,35 @@ class RegisterActivityFillAccountDetailsLocal : AppCompatActivity() {
     }
 
     private fun centerMapOnBarcelona() {
-        val barcelona = GeoPoint(41.3851, 2.1734)  // Coordenadas más precisas del centro de Barcelona
+        val barcelona = GeoPoint(41.3851, 2.1734)
         try {
-            // Configura el zoom primero
+            //osmMapView.controller.setCenter(barcelona)
+            osmMapView.controller.animateTo(barcelona)
             osmMapView.controller.setZoom(15.0)
-
-            // Luego establece el centro
-            //osmMapView.controller.animateTo(barcelona)
-
-            // Alternativa más directa:
-             osmMapView.controller.setCenter(barcelona)
-            // osmMapView.controller.setZoom(15.0)
-
-            Log.d(TAG, "Mapa centrado en Barcelona: ${barcelona.latitude}, ${barcelona.longitude}")
+            Log.d(TAG, "Mapa centrado en Barcelona")
         } catch (e: Exception) {
             Log.e(TAG, "Error al centrar mapa: ${e.message}")
+            // Intentar nuevamente con un enfoque diferente si falla
+            /*runOnUiThread {
+                osmMapView.controller.animateTo(barcelona)
+                osmMapView.controller.setZoom(15.0)
+            }*/
         }
     }
 
     // Manejo de permisos de ubicación
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_LOCATION_PERMISSION && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            setUserLocation() // Establecer ubicación si el permiso es concedido
-        } else {
-            centerMapOnBarcelona() // Si el permiso no es concedido, centrar en Barcelona
+        when (requestCode) {
+            REQUEST_LOCATION_PERMISSION -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    setUserLocation()
+                } else {
+                    // Permiso denegado - centrar en Barcelona
+                    centerMapOnBarcelona()
+                    Toast.makeText(this, "Permiso de ubicación denegado. Mapa centrado en Barcelona.", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
